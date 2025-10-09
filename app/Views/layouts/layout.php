@@ -48,7 +48,9 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/menu">Testttt</a></li>
+        <li class="nav-item"><a class="nav-link" href="/menu">Dimas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/menu">Ganteng</a></li>
+        <li class="nav-item"><a class="nav-link" href="/menu">BGT</a></li>
       </ul>
     </div>
   </div>
