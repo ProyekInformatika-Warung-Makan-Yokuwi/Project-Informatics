@@ -7,5 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/menu', 'Menu::index');
+$routes->get('daftar_login', 'Home::daftar_login');
+
 
 

@@ -9,4 +9,10 @@ class Home extends BaseController
         $data['title'] = 'Selamat Datang di Warung Makan Yokuwi';
         return view('home', $data);
     }
+    
+    public function daftar_login()
+{
+    return view('daftar_login');
+}
+
 }
