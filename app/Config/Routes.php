@@ -8,6 +8,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/menu', 'Menu::index');
 $routes->get('daftar_login', 'Home::daftar_login');
+$routes->get('/kelola-menu', 'MenuController::index'); 
+$routes->get('/logout', 'AuthController::logout');
 
 
 
