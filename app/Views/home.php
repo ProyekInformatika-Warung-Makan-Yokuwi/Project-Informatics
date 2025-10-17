@@ -8,7 +8,7 @@
     <p class="lead text-muted mb-4">
       Nikmati cita rasa masakan rumahan yang lezat, bergizi, dan dibuat dengan sepenuh hati ❤️
     </p>
-    <a href="/menu" class="btn btn-danger btn-lg rounded-pill shadow-sm">Lihat Menu Kami</a>
+    <a href="/menu" class="btn btn-danger btn-lg rounded-pill shadow-sm mb-2">Lihat Menu Kami</a>
   </div>
 </section>
 
