@@ -1,9 +1,9 @@
 <?= $this->extend('layouts/layout') ?>
 <?= $this->section('content') ?>
 
-<section class="bg-light py-5">
+<section class="py-5" style="background: #fff5f5;">
   <div class="container">
-    <h1 class="fw-bold text-center text-danger mb-5">Daftar Menu Yokuwi</h1>
+    <h1 class="fw-bold text-center text-danger mb-5">🍽️ Daftar Menu Yokuwi 🍛</h1>
 
     <div class="row g-4 justify-content-center">
       <?php if (!empty($menuList) && is_array($menuList)): ?>
@@ -17,19 +17,36 @@
           ?>
 
           <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card border-0 shadow-sm h-100 rounded-4 menu-card">
-              <div class="overflow-hidden rounded-top-4">
+            <div class="card menu-card border-0 shadow-lg h-100 rounded-4 overflow-hidden">
+              <div class="menu-img-wrapper">
                 <img src="<?= $gambarPath ?>" 
                      alt="<?= esc($menu['namaMenu']) ?>" 
-                     class="card-img-top" 
-                     style="height: 300px; object-fit: cover; transition: transform 0.4s ease;">
+                     class="card-img-top menu-img">
               </div>
-              <div class="card-body text-center">
-                <h5 class="fw-bold"><?= esc($menu['namaMenu']) ?></h5>
-                <p class="text-danger fw-semibold mb-3">
+              <div class="card-body text-center p-4">
+                <h5 class="fw-bold text-dark mb-2"><?= esc($menu['namaMenu']) ?></h5>
+                <p class="text-danger fw-semibold fs-5 mb-4">
                   Rp <?= number_format($menu['hargaMenu'], 0, ',', '.') ?>
                 </p>
-                <a href="#" class="btn btn-outline-danger rounded-pill px-4">Pesan</a>
+
+                <div class="d-flex justify-content-center gap-2">
+                  <!-- Tombol Tambah ke Keranjang -->
+                  <form action="/cart/add" method="post">
+                    <input type="hidden" name="idMenu" value="<?= $menu['idMenu'] ?>">
+                    <button type="submit" class="btn btn-outline-danger rounded-pill px-3 py-2 fw-semibold shadow-sm w-100">
+                      🛒 Tambah
+                    </button>
+                  </form>
+
+                  <!-- Tombol Pesan Langsung -->
+                  <form action="/order/checkout" method="post">
+                    <input type="hidden" name="idMenu" value="<?= $menu['idMenu'] ?>">
+                    <button type="submit" class="btn btn-danger rounded-pill px-3 py-2 fw-semibold shadow-sm w-100">
+                      ⚡ Pesan
+                    </button>
+                  </form>
+                </div>
+
               </div>
             </div>
           </div>
@@ -43,16 +60,54 @@
 
 <style>
   .menu-card {
+    background: #fff;
     transition: all 0.3s ease;
-  }
-
-  .menu-card:hover img {
-    transform: scale(1.08);
+    border-radius: 1.2rem !important;
   }
 
   .menu-card:hover {
-    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
-    transform: translateY(-5px);
+    transform: translateY(-7px);
+    box-shadow: 0 10px 25px rgba(220, 53, 69, 0.2);
+  }
+
+  .menu-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 320px;
+  }
+
+  .menu-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .menu-card:hover .menu-img {
+    transform: scale(1.12);
+  }
+
+  .btn-danger, .btn-outline-danger {
+    transition: all 0.3s ease;
+  }
+
+  .btn-danger:hover {
+    background-color: #b81f2c;
+    transform: scale(1.05);
+  }
+
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+    transform: scale(1.05);
+  }
+
+  .d-flex form {
+    flex: 1;
+  }
+
+  body {
+    background-color: #fffaf9;
   }
 </style>
 

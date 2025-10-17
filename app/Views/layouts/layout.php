@@ -5,18 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= esc($title ?? 'Yokuwi') ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     .navbar-custom { background-color: #c82333; }
-    .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: #fff !important; }
+    .navbar-custom .nav-link, 
+    .navbar-custom .navbar-brand { color: #fff !important; }
     .navbar-custom .nav-link:hover { color: #ffd6d6 !important; }
     .logo-yokuwi { height: 48px; width: auto; object-fit: contain; }
     @media (max-width: 768px) { .logo-yokuwi { height: 42px; } }
+
+    /* Ikon keranjang */
+    .cart-icon {
+      position: relative;
+      font-size: 1.6rem; /* lebih besar */
+      color: #fff;
+      transition: 0.3s ease;
+    }
+    .cart-icon:hover {
+      color: #ffefef;
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #ffc107;
+      color: #000;
+      font-weight: 700;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.8rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
     .navbar-custom .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
   </style>
 </head>
 <body>
+
+<?php $session = session(); $cart = $session->get('cart') ?? []; $cartCount = array_sum(array_column($cart, 'qty')); ?>
 
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container">
@@ -29,15 +59,24 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuSamping">LOGIN</a>
-            </li>
-        </ul>
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item me-3">
+          <a href="/cart" class="position-relative">
+            <i class="bi bi-cart3 cart-icon"></i>
+            <?php if ($cartCount > 0): ?>
+              <span class="cart-count"><?= $cartCount ?></span>
+            <?php endif; ?>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuSamping">LOGIN</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
 
+<!-- Offcanvas Menu -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="menuSamping">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title">Menu</h5>
