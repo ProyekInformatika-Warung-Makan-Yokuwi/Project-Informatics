@@ -6,56 +6,53 @@
     <h1 class="fw-bold text-center text-danger mb-5">🛒 Keranjang Belanja</h1>
 
     <?php if (!empty($cart)): ?>
-      <div class="table-responsive">
-        <table class="table table-bordered align-middle text-center">
-          <thead class="table-danger">
-            <tr>
-              <th>Gambar</th>
-              <th>Nama Menu</th>
-              <th>Harga</th>
-              <th>Jumlah</th>
-              <th>Subtotal</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $total = 0; ?>
-            <?php foreach ($cart as $item): ?>
-              <?php $subtotal = $item['harga'] * $item['qty']; ?>
-              <?php $total += $subtotal; ?>
+      <form action="<?= site_url('cart/checkout') ?>" method="post" id="cartForm">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-center">
+            <thead class="table-danger">
               <tr>
-                <td>
-                  <img src="<?= base_url('images/' . esc($item['gambar'])) ?>" width="80" height="80" style="object-fit: cover;" class="rounded-3">
-                </td>
-                <td><?= esc($item['nama']) ?></td>
-                <td>Rp <?= number_format($item['harga'], 0, ',', '.') ?></td>
-                <td>
-                  <form action="<?= site_url('cart/updateQty/' . $item['id']) ?>" method="post" class="d-inline-flex align-items-center justify-content-center">
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
-                    <button type="submit" name="action" value="minus" class="btn btn-sm btn-outline-danger px-2 me-2">−</button>
-                    <input type="text" name="qty" value="<?= $item['qty'] ?>" class="form-control text-center" style="width: 60px;" readonly>
-                    <button type="submit" name="action" value="plus" class="btn btn-sm btn-outline-success px-2 ms-2">+</button>
-                  </form>
-                </td>
-                <td>Rp <?= number_format($subtotal, 0, ',', '.') ?></td>
-                <td>
-                  <a href="/cart/remove/<?= $item['id'] ?>" class="btn btn-sm btn-outline-danger">Hapus</a>
-                </td>
+                <th>Pilih</th>
+                <th>Gambar</th>
+                <th>Nama Menu</th>
+                <th>Harga</th>
+                <th style="width: 180px;">Jumlah</th>
+                <th>Subtotal</th>
+                <th>Aksi</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colspan="4" class="text-end">Total:</th>
-              <th colspan="2" class="text-danger fs-5 fw-bold">Rp <?= number_format($total, 0, ',', '.') ?></th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <div class="text-center mt-4">
-        <a href="/menu" class="btn btn-outline-danger rounded-pill me-2">Lanjut Belanja</a>
-        <a href="#" class="btn btn-danger rounded-pill">Checkout</a>
-      </div>
+            </thead>
+            <tbody>
+              <?php foreach ($cart as $item): ?>
+                <tr data-id="<?= $item['id'] ?>">
+                  <td>
+                    <input type="checkbox" name="selected[]" value="<?= $item['id'] ?>" class="form-check-input">
+                  </td>
+                  <td>
+                    <img src="<?= base_url('images/' . esc($item['gambar'])) ?>" width="80" height="80" style="object-fit: cover;" class="rounded-3">
+                  </td>
+                  <td class="fw-semibold"><?= esc($item['nama']) ?></td>
+                  <td>Rp <span class="harga"><?= number_format($item['harga'], 0, ',', '.') ?></span></td>
+                  <td>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <button type="button" class="btn btn-sm btn-outline-danger px-2 minus-btn">−</button>
+                      <input type="text" class="form-control text-center mx-2 qty-input" value="<?= $item['qty'] ?>" style="width: 60px;" readonly>
+                      <button type="button" class="btn btn-sm btn-outline-success px-2 plus-btn">+</button>
+                    </div>
+                  </td>
+                  <td>Rp <span class="subtotal"><?= number_format($item['harga'] * $item['qty'], 0, ',', '.') ?></span></td>
+                  <td>
+                    <a href="/cart/remove/<?= $item['id'] ?>" class="btn btn-sm btn-outline-danger">Hapus</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center mt-4">
+          <a href="/menu" class="btn btn-outline-danger rounded-pill me-2">Lanjut Belanja</a>
+          <button type="submit" class="btn btn-danger rounded-pill">Checkout yang Dipilih</button>
+        </div>
+      </form>
     <?php else: ?>
       <p class="text-center text-muted">Keranjang masih kosong.</p>
       <div class="text-center mt-3">
@@ -64,5 +61,42 @@
     <?php endif; ?>
   </div>
 </section>
+
+<script>
+// Fungsi untuk format angka ke format rupiah
+function formatRupiah(angka) {
+  return new Intl.NumberFormat('id-ID', { style: 'decimal', maximumFractionDigits: 0 }).format(angka);
+}
+
+// Event listener untuk tombol + dan −
+document.querySelectorAll('.plus-btn, .minus-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    const row = this.closest('tr');
+    const qtyInput = row.querySelector('.qty-input');
+    const harga = parseInt(row.querySelector('.harga').textContent.replace(/\./g, ''));
+    let qty = parseInt(qtyInput.value);
+
+    if (this.classList.contains('plus-btn')) {
+      qty++;
+    } else if (this.classList.contains('minus-btn') && qty > 1) {
+      qty--;
+    }
+
+    qtyInput.value = qty;
+    const subtotal = harga * qty;
+    row.querySelector('.subtotal').textContent = formatRupiah(subtotal);
+
+    // Kirim update ke server tanpa reload
+    fetch(`/cart/updateQtyAjax/${row.dataset.id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({ qty })
+    }).catch(err => console.error(err));
+  });
+});
+</script>
 
 <?= $this->endSection() ?>

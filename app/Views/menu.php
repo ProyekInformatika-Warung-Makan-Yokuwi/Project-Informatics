@@ -18,11 +18,11 @@
 
           <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card menu-card border-0 shadow-lg h-100 rounded-4 overflow-hidden">
-              <div class="menu-img-wrapper">
+              <a href="<?= site_url('menu/detail/' . $menu['idMenu']) ?>" class="menu-img-wrapper">
                 <img src="<?= $gambarPath ?>" 
                      alt="<?= esc($menu['namaMenu']) ?>" 
                      class="card-img-top menu-img">
-              </div>
+              </a>
               <div class="card-body text-center p-4">
                 <h5 class="fw-bold text-dark mb-2"><?= esc($menu['namaMenu']) ?></h5>
                 <p class="text-danger fw-semibold fs-5 mb-4">
@@ -71,9 +71,11 @@
   }
 
   .menu-img-wrapper {
+    display: block;
     position: relative;
     overflow: hidden;
     height: 320px;
+    cursor: pointer;
   }
 
   .menu-img {
