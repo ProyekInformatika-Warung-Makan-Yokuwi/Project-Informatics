@@ -26,7 +26,7 @@ class Menu extends BaseController
         $data['menu'] = $menu;
         $data['title'] = 'Detail Menu - ' . $menu['namaMenu'];
 
-        return view('menu_detail', $data);
+        return view('menu', $data);
     }
 
     // ✅ Fungsi baru untuk "Pesan Sekarang"
