@@ -38,8 +38,8 @@
                     </button>
                   </form>
 
-                  <!-- Tombol Pesan Langsung -->
-                  <form action="/order/checkout" method="post">
+                  <!-- ✅ Tombol Pesan Langsung ke /menu/orderNow -->
+                  <form action="/menu/orderNow" method="post">
                     <input type="hidden" name="idMenu" value="<?= $menu['idMenu'] ?>">
                     <button type="submit" class="btn btn-danger rounded-pill px-3 py-2 fw-semibold shadow-sm w-100">
                       ⚡ Pesan
