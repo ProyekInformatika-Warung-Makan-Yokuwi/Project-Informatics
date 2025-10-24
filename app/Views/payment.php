@@ -3,19 +3,18 @@
 
 <section class="py-5" style="background: linear-gradient(180deg, #fff6f6 0%, #ffffff 100%); min-height: 100vh;">
   <div class="container">
-    <!-- Progress Steps -->
+    
+    <!-- ✅ Progress Steps (3 tahap: Checkout - Pembayaran - Selesai) -->
     <div class="text-center mb-5">
       <div class="d-flex justify-content-center align-items-center gap-3">
         <div class="step active">1</div>
         <div class="line"></div>
         <div class="step active">2</div>
         <div class="line"></div>
-        <div class="step active">3</div>
-        <div class="line"></div>
-        <div class="step">4</div>
+        <div class="step">3</div>
       </div>
       <div class="mt-3 text-muted small fw-semibold">
-        Keranjang &nbsp;→&nbsp; Checkout &nbsp;→&nbsp; <span class="text-danger">Pembayaran</span> &nbsp;→&nbsp; Selesai
+        Checkout &nbsp;→&nbsp; <span class="text-danger">Pembayaran</span> &nbsp;→&nbsp; Selesai
       </div>
     </div>
 
@@ -79,7 +78,7 @@
                 <button type="submit" class="btn btn-danger rounded-pill px-5 py-2 fw-semibold shadow-sm me-2">
                   Saya Sudah Bayar
                 </button>
-                <a href="/cart" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold">Kembali</a>
+                <a href="/order/checkout" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold">Kembali</a>
               </div>
             </form>
           </div>
@@ -115,6 +114,7 @@
   </div>
 </section>
 
+<!-- ✅ Script Interaksi -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const qrisRadio = document.getElementById("qris");
@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<!-- ✅ Style -->
 <style>
   /* Progress bar */
   .step {
@@ -152,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
     box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
   }
   .line {
-    width: 50px;
+    width: 60px;
     height: 3px;
     background: #f0f0f0;
   }
