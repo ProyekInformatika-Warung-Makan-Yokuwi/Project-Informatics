@@ -30,15 +30,15 @@
                 </p>
 
                 <div class="d-flex justify-content-center gap-2">
-                  <!-- Tombol Tambah ke Keranjang -->
-                  <form action="/cart/add" method="post">
+                  <!-- Tombol Tambah ke Keranjang (AJAX) -->
+                  <form class="add-to-cart-form" action="/cart/add" method="post">
                     <input type="hidden" name="idMenu" value="<?= $menu['idMenu'] ?>">
                     <button type="submit" class="btn btn-outline-danger rounded-pill px-3 py-2 fw-semibold shadow-sm w-100">
                       🛒 Tambah
                     </button>
                   </form>
 
-                  <!-- ✅ Tombol Pesan Langsung ke /menu/orderNow -->
+                  <!-- Tombol Pesan Langsung -->
                   <form action="/menu/orderNow" method="post">
                     <input type="hidden" name="idMenu" value="<?= $menu['idMenu'] ?>">
                     <button type="submit" class="btn btn-danger rounded-pill px-3 py-2 fw-semibold shadow-sm w-100">
@@ -58,6 +58,64 @@
   </div>
 </section>
 
+<!-- ===========================
+     ⚡ Script AJAX Tambah Keranjang
+     =========================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const forms = document.querySelectorAll('.add-to-cart-form');
+
+  forms.forEach(form => {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          showToast('✅ Berhasil ditambahkan ke keranjang!');
+          updateCartCount(data.count); // 🔥 langsung update badge
+        } else {
+          showToast('⚠️ Gagal menambahkan ke keranjang.', true);
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('❌ Terjadi kesalahan koneksi.', true);
+      }
+    });
+  });
+
+  // Fungsi notifikasi toast sederhana
+  function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.className = `toast-message ${isError ? 'error' : 'success'}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 2500);
+  }
+
+  // 🔥 Update angka badge keranjang di navbar
+  function updateCartCount(count) {
+    const badge = document.querySelector('#cart-count');
+    if (badge) badge.textContent = count;
+  }
+});
+</script>
+
+<!-- ===========================
+     🎨 Style Tambahan
+     =========================== -->
 <style>
   .menu-card {
     background: #fff;
@@ -110,6 +168,29 @@
 
   body {
     background-color: #fffaf9;
+  }
+
+  /* Toast Notification */
+  .toast-message {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #28a745;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+  }
+  .toast-message.error {
+    background: #dc3545;
+  }
+  .toast-message.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 

@@ -39,6 +39,16 @@ class Cart extends BaseController
         }
 
         $session->set('cart', $cart);
+
+        // ✅ Jika request dari AJAX → kirim JSON response
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => true,
+                'count' => count($cart)
+            ]);
+        }
+
+        // Jika bukan AJAX → redirect biasa
         return redirect()->back();
     }
 
@@ -56,72 +66,70 @@ class Cart extends BaseController
     }
 
     public function updateQty($id)
-{
-    $session = session();
-    $cart = $session->get('cart') ?? [];
+    {
+        $session = session();
+        $cart = $session->get('cart') ?? [];
 
-    if (!isset($cart[$id])) {
+        if (!isset($cart[$id])) {
+            return redirect()->to('/cart');
+        }
+
+        $action = $this->request->getPost('action');
+        if ($action === 'plus') {
+            $cart[$id]['qty']++;
+        } elseif ($action === 'minus' && $cart[$id]['qty'] > 1) {
+            $cart[$id]['qty']--;
+        }
+
+        $session->set('cart', $cart);
         return redirect()->to('/cart');
     }
 
-    $action = $this->request->getPost('action');
-    if ($action === 'plus') {
-        $cart[$id]['qty']++;
-    } elseif ($action === 'minus' && $cart[$id]['qty'] > 1) {
-        $cart[$id]['qty']--;
-    }
-
-    $session->set('cart', $cart);
-    return redirect()->to('/cart');
-}
-
-public function checkout()
-{
-    $session = session();
-    $cart = $session->get('cart') ?? [];
-    $selectedIds = $this->request->getPost('selected') ?? [];
-
-    if (empty($selectedIds)) {
-        return redirect()->to('/cart')->with('error', 'Pilih minimal satu item untuk checkout!');
-    }
-
-    $checkoutItems = [];
-    $total = 0;
-
-    foreach ($selectedIds as $id) {
-        if (isset($cart[$id])) {
-            $checkoutItems[] = $cart[$id];
-            $total += $cart[$id]['harga'] * $cart[$id]['qty'];
-        }
-    }
-
-    $data = [
-        'title' => 'Checkout',
-        'items' => $checkoutItems,
-        'total' => $total
-    ];
-
-    return view('checkout', $data);
-}
-
-public function updateQtyAjax($id)
-{
-    if ($this->request->isAJAX()) {
+    public function checkout()
+    {
         $session = session();
         $cart = $session->get('cart') ?? [];
-        $data = $this->request->getJSON(true);
-        $qty = max(1, (int)($data['qty'] ?? 1));
+        $selectedIds = $this->request->getPost('selected') ?? [];
 
-        if (isset($cart[$id])) {
-            $cart[$id]['qty'] = $qty;
-            $session->set('cart', $cart);
+        if (empty($selectedIds)) {
+            return redirect()->to('/cart')->with('error', 'Pilih minimal satu item untuk checkout!');
         }
 
-        return $this->response->setJSON(['success' => true]);
+        $checkoutItems = [];
+        $total = 0;
+
+        foreach ($selectedIds as $id) {
+            if (isset($cart[$id])) {
+                $checkoutItems[] = $cart[$id];
+                $total += $cart[$id]['harga'] * $cart[$id]['qty'];
+            }
+        }
+
+        $data = [
+            'title' => 'Checkout',
+            'items' => $checkoutItems,
+            'total' => $total
+        ];
+
+        return view('checkout', $data);
     }
-    return $this->response->setStatusCode(400);
-}
 
+    public function updateQtyAjax($id)
+    {
+        if ($this->request->isAJAX()) {
+            $session = session();
+            $cart = $session->get('cart') ?? [];
+            $data = $this->request->getJSON(true);
+            $qty = max(1, (int)($data['qty'] ?? 1));
 
+            if (isset($cart[$id])) {
+                $cart[$id]['qty'] = $qty;
+                $session->set('cart', $cart);
+            }
 
+            return $this->response->setJSON(['success' => true]);
+        }
+
+        return $this->response->setStatusCode(400);
+    }
 }
