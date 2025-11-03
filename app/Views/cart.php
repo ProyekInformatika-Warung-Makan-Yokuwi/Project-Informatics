@@ -3,7 +3,7 @@
 
 <section class="py-5">
   <div class="container">
-    <h1 class="fw-bold text-center text-danger mb-5">🛒 Keranjang Belanja</h1>
+    <h1 class="fw-bold text-center text-danger mb-5">Keranjang Belanja</h1>
 
     <?php if (!empty($cart)): ?>
       <form action="<?= site_url('cart/checkout') ?>" method="post" id="cartForm">
