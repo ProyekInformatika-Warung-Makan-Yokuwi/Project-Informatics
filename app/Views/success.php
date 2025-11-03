@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <h1 class="fw-bold text-success mb-3">Pembayaran Berhasil! 🎉</h1>
+      <h1 class="fw-bold text-success mb-3">Pembayaran Berhasil!</h1>
       <p class="text-muted mb-4">
         Terima kasih telah berbelanja di <strong>Yokuwi</strong>!<br>
         Pesanan Anda sedang kami proses dengan penuh cinta 💚.

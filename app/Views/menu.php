@@ -3,7 +3,7 @@
 
 <section class="py-5" style="background: #fff5f5;">
   <div class="container">
-    <h1 class="fw-bold text-center text-danger mb-5">🍽️ Daftar Menu Yokuwi 🍛</h1>
+    <h1 class="fw-bold text-center text-danger mb-5">Daftar Menu Yokuwi</h1>
 
     <div class="row g-4 justify-content-center">
       <?php if (!empty($menuList) && is_array($menuList)): ?>
