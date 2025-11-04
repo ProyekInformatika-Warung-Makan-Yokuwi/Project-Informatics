@@ -19,8 +19,8 @@ $routes->post('/menu/orderNow', 'Menu::orderNow');
 // =========================
 $routes->get('/login', 'Home::login');
 $routes->post('/login/process', 'Login::process');
-$routes->get('/daftar_login', 'Home::daftar_login');
-$routes->get('/logout', 'AuthController::logout');
+$routes->get('/logout', 'Login::logout');
+
 
 // =========================
 // ADMIN: KELOLA MENU

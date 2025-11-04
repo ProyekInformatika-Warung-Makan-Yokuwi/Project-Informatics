@@ -19,7 +19,7 @@
     /* Ikon keranjang */
     .cart-icon {
       position: relative;
-      font-size: 1.6rem; /* lebih besar */
+      font-size: 1.6rem;
       color: #fff;
       transition: 0.3s ease;
     }
@@ -41,22 +41,22 @@
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }
 
-    .navbar-custom .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    }
-
-    /* Tambahan agar ikon toggler terlihat */
-    .navbar-toggler {
-      border-color: rgba(255,255,255,0.5);
-    }
+    .navbar-toggler { border-color: rgba(255,255,255,0.5); }
     .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
   </style>
 </head>
 <body>
 
-<?php $session = session(); $cart = $session->get('cart') ?? []; $cartCount = array_sum(array_column($cart, 'qty')); ?>
+<?php
+$session = session();
+$cart = $session->get('cart') ?? [];
+$cartCount = array_sum(array_column($cart, 'qty'));
+$isLoggedIn = $session->get('isLoggedIn');
+$username = $session->get('username');
+$role = $session->get('role');
+?>
 
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container">
@@ -70,6 +70,8 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
+        <!-- Ikon keranjang hanya muncul setelah login -->
+        <?php if ($isLoggedIn): ?>
         <li class="nav-item me-3">
           <a href="/cart" class="position-relative">
             <i class="bi bi-cart3 cart-icon"></i>
@@ -78,9 +80,19 @@
             <?php endif; ?>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link fw-semibold" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuSamping">LOGIN</a>
-        </li>
+        <?php endif; ?>
+
+        <?php if ($isLoggedIn): ?>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-white" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuSamping">
+              <?= esc($username) ?> <i class="bi bi-person-circle"></i>
+            </a>
+          </li>
+        <?php else: ?>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-white" href="<?= site_url('login') ?>">LOGIN</a>
+          </li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>
@@ -92,13 +104,21 @@
     <h5 class="offcanvas-title">Menu</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
+
   <div class="offcanvas-body">
     <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('home') ?>">HOME</a></li>
-         <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('login') ?>">LOGIN</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('daftar_login') ?>">INFORMASI AKUN</a></li>
+      <!-- Selalu muncul -->
+      <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('home') ?>">HOME</a></li>
+
+      <?php if ($isLoggedIn): ?>
+        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('menu') ?>">MENU</a></li>
         <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('kelola-menu') ?>">KELOLA MENU</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('logout') ?>">LOGOUT</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('daftar_login') ?>">INFORMASI AKUN</a></li>
+        <li class="nav-item"><a class="nav-link text-dark text-danger fw-semibold" href="<?= site_url('logout') ?>">LOGOUT</a></li>
+
+      <?php else: ?>
+        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('login') ?>">LOGIN</a></li>
+      <?php endif; ?>
     </ul>
   </div>
 </div>
