@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/home', 'Home::home');
 
 // =========================
 // MENU
@@ -51,4 +52,17 @@ $routes->post('/order/confirmPayment', 'Order::confirmPayment');
 // ✅ halaman sukses pembayaran
 $routes->get('/order/payment_success', 'Order::paymentSuccess');
 $routes->get('/order/success', 'Order::success');
+
+// =========================
+// Kelola Menu
+// =========================
+$routes->get('/admin/kelola-menu', 'Admin::kelolaMenu');
+$routes->get('/admin/kelola-menu/edit/(:num)', 'Admin::editMenu/$1');
+$routes->post('/admin/kelola-menu/update/(:num)', 'Admin::updateMenu/$1');
+$routes->get('/admin/kelola-menu/delete/(:num)', 'Admin::deleteMenu/$1');
+
+// ✅ Tambah Menu Baru
+$routes->get('/admin/kelola-menu/tambah', 'Admin::tambahMenu');
+$routes->post('/admin/kelola-menu/simpan', 'Admin::simpanMenu');
+
 

@@ -112,11 +112,12 @@ $role = $session->get('role');
 
       <?php if ($isLoggedIn): ?>
         <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('menu') ?>">MENU</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('kelola-menu') ?>">KELOLA MENU</a></li>
+        <li class="nav-item">
+  <a class="nav-link text-dark" href="<?= site_url('admin/kelola-menu') ?>">KELOLA MENU</a></li>
         <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('daftar_login') ?>">INFORMASI AKUN</a></li>
         <li class="nav-item"><a class="nav-link text-dark text-danger fw-semibold" href="<?= site_url('logout') ?>">LOGOUT</a></li>
 
-      <?php else: ?>
+      <?php else: ?>  
         <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('login') ?>">LOGIN</a></li>
       <?php endif; ?>
     </ul>
