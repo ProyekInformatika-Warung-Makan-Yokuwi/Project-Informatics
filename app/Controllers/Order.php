@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\PesananModel;
+use App\Models\DetailPesananModel;
 use App\Models\MenuModel;
 use CodeIgniter\Controller;
 
@@ -66,9 +68,9 @@ class Order extends Controller
         }
 
         $checkoutItem = [
-            'idMenu' => $menu['id'],
-            'namaMenu' => $menu['nama_menu'],
-            'hargaMenu' => $menu['harga'],
+            'idMenu' => $menu['idMenu'],
+            'namaMenu' => $menu['namaMenu'],
+            'hargaMenu' => $menu['hargaMenu'],
             'qty' => $qty,
         ];
 
@@ -84,28 +86,50 @@ class Order extends Controller
     {
         $metode = $this->request->getPost('metode');
         $session = session();
+        $checkoutItem = $session->get('checkoutItem');
 
-        if (!$metode) {
-            return redirect()->back()->with('error', 'Silakan pilih metode pembayaran.');
+        if (!$metode || !$checkoutItem) {
+            return redirect()->back()->with('error', 'Silakan pilih metode pembayaran dan pastikan pesanan ada.');
         }
 
-        // ✅ Tentukan status berdasarkan metode
+        // Tentukan status berdasarkan metode pembayaran
         if ($metode === 'qris') {
-            // QRIS langsung dianggap Lunas
             $status = 'Lunas (Pembayaran QRIS berhasil)';
         } else {
-            // Tunai menunggu konfirmasi admin
             $status = 'Menunggu Konfirmasi Admin (Pembayaran Tunai)';
         }
 
-        // Simpan status ke session
+        // Simpan status pembayaran ke session
         $session->set('paymentStatus', $status);
         $session->set('paymentMethod', $metode);
 
-        // (Opsional) Jika nanti ada tabel orders, bisa disimpan ke database di sini
-        // $orderModel = new OrderModel();
-        // $orderModel->insert([...]);
+        // Simpan pesanan ke tabel `pesanan` tanpa `idAdmin`
+        $pesananModel = new PesananModel();
+        $dataPesanan = [
+            'namaPelanggan' => 'Pelanggan',  // Bisa diambil dari session atau form input pelanggan
+            'tanggalPemesanan' => date('Y-m-d'),
+            'metodePembayaran' => $metode,
+            'statusPembayaran' => $status,
+            'total' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
+        ];
 
+        // Insert pesanan dan dapatkan ID pesanan yang baru
+        $pesananModel->insert($dataPesanan);
+        $idPesanan = $pesananModel->getInsertID();
+
+        // Simpan detail pesanan ke tabel `detailpesanan`
+        $detailPesananModel = new DetailPesananModel();
+        $dataDetailPesanan = [
+            'idPesanan' => $idPesanan,
+            'idMenu' => $checkoutItem['idMenu'],
+            'jumlah' => $checkoutItem['qty'],
+            'hargaTransaksi' => $checkoutItem['hargaMenu'],
+            'subTotal' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
+        ];
+
+        $detailPesananModel->insert($dataDetailPesanan);
+
+        // Redirect ke halaman sukses pembayaran
         return redirect()->to('/order/success');
     }
 
