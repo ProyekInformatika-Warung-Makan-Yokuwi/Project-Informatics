@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MenuModel;
+use App\Models\AdminModel;
 
 class Admin extends BaseController
 {
@@ -21,6 +22,36 @@ class Admin extends BaseController
         ];
 
         return view('kelola_menu', $data);
+    }
+
+    // ✅ Halaman daftar admin
+    public function daftarLogin()
+    {
+        // Cek jika hanya admin yang dapat mengakses
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        }
+
+        // Mengambil data admin dari model
+        $adminModel = new AdminModel();
+        
+        // Ambil data session untuk status login dan informasi pengguna
+        $isLoggedIn = session()->get('isLoggedIn');
+        $username = session()->get('username'); // Mengambil username dari session
+        $role = session()->get('role');
+        $email = session()->get('email'); // Ambil email dari session
+
+        // Mengirim data ke view
+        $data = [
+            'title' => 'Daftar Akun Admin',
+            'admins' => $adminModel->getAllAdmins(),
+            'isLoggedIn' => $isLoggedIn,
+            'username' => $username,
+            'role' => $role,
+            'email' => $email
+        ];
+
+        return view('daftar_login', $data);
     }
 
     // ✅ Halaman edit menu

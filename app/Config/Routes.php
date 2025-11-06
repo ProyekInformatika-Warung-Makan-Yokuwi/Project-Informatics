@@ -65,4 +65,8 @@ $routes->get('/admin/kelola-menu/delete/(:num)', 'Admin::deleteMenu/$1');
 $routes->get('/admin/kelola-menu/tambah', 'Admin::tambahMenu');
 $routes->post('/admin/kelola-menu/simpan', 'Admin::simpanMenu');
 
+// =========================
+// Admin
+// =========================
+$routes->get('/daftar_login', 'Admin::daftarLogin');
 

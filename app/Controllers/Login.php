@@ -9,7 +9,7 @@ class Login extends BaseController
 {
     public function index()
     {
-        return view('login');
+        return view('login'); // Menampilkan halaman login
     }
 
     public function process()
@@ -35,16 +35,18 @@ class Login extends BaseController
 
         // Cek password hash
         if (password_verify($password, $user['password'])) {
+            // Menyimpan data session yang diperlukan
             $sessionData = [
                 'isLoggedIn' => true,
                 'id'         => $user['id'],
-                'nama'       => $user['nama'],
+                'username'   => $user['nama'],  // Pastikan 'nama' diset sebagai 'username'
                 'email'      => $user['email'],
-                'role'       => $user['role'],
+                'role'       => $user['role'],  // Menyimpan role
             ];
-            $session->set($sessionData);
+            $session->set($sessionData);  // Menyimpan data session
 
-            return redirect()->to('/')->with('success', 'Login berhasil! Selamat datang, ' . $user['nama']);
+            // Mengalihkan ke halaman utama setelah login berhasil
+            return redirect()->to('/home')->with('success', 'Login berhasil! Selamat datang, ' . $user['nama']);
         } else {
             return redirect()->back()->with('error', 'Password salah.');
         }
@@ -52,7 +54,7 @@ class Login extends BaseController
 
     public function logout()
     {
-        session()->destroy();
+        session()->destroy();  // Menghancurkan session saat logout
         return redirect()->to('/')->with('success', 'Anda telah logout.');
     }
 }
