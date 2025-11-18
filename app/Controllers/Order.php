@@ -17,6 +17,9 @@ class Order extends Controller
         $session = session();
         $checkoutItem = $session->get('checkoutItem');
 
+        // Debugging: Pastikan checkoutItem ada di session
+        log_message('debug', 'Checkout Item at Checkout: ' . print_r($checkoutItem, true));
+
         if (!$checkoutItem) {
             return redirect()->to('/menu')->with('error', 'Belum ada item yang dipesan.');
         }
@@ -37,6 +40,9 @@ class Order extends Controller
     {
         $session = session();
         $checkoutItem = $session->get('checkoutItem');
+
+        // Debugging: Pastikan checkoutItem ada di session
+        log_message('debug', 'Checkout Item at Payment: ' . print_r($checkoutItem, true));
 
         if (!$checkoutItem) {
             return redirect()->to('/menu')->with('error', 'Belum ada item yang dipesan.');
@@ -67,6 +73,7 @@ class Order extends Controller
             return redirect()->to('/menu')->with('error', 'Menu tidak ditemukan.');
         }
 
+        // Simpan item yang dipesan ke session checkoutItem
         $checkoutItem = [
             'idMenu' => $menu['idMenu'],
             'namaMenu' => $menu['namaMenu'],
@@ -75,6 +82,9 @@ class Order extends Controller
         ];
 
         $session->set('checkoutItem', $checkoutItem);
+
+        // Debugging: Pastikan checkoutItem sudah diset dengan benar
+        log_message('debug', 'Checkout Item After Order: ' . print_r($checkoutItem, true));
 
         return redirect()->to('/order/checkout');
     }
@@ -87,6 +97,10 @@ class Order extends Controller
         $metode = $this->request->getPost('metode');
         $session = session();
         $checkoutItem = $session->get('checkoutItem');
+
+        // Debugging: Pastikan metode pembayaran dan checkoutItem ada
+        log_message('debug', 'Metode Pembayaran: ' . $metode);
+        log_message('debug', 'Checkout Item at ConfirmPayment: ' . print_r($checkoutItem, true));
 
         if (!$metode || !$checkoutItem) {
             return redirect()->back()->with('error', 'Silakan pilih metode pembayaran dan pastikan pesanan ada.');
@@ -128,6 +142,13 @@ class Order extends Controller
         ];
 
         $detailPesananModel->insert($dataDetailPesanan);
+
+        // Hapus semua item dari keranjang setelah pembayaran
+        $session->remove('cart');
+        $session->remove('checkoutItem');
+
+        // Debugging: Pastikan keranjang dihapus
+        log_message('debug', 'Cart after payment: ' . print_r($session->get('cart'), true));
 
         // Redirect ke halaman sukses pembayaran
         return redirect()->to('/order/success');

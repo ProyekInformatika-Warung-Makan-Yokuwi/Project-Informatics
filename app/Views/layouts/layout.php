@@ -37,6 +37,7 @@
       font-size: 1.6rem;
       color: #fff;
       transition: 0.3s ease;
+      display: block !important; /* Pastikan selalu tampil */
     }
     .cart-icon:hover {
       color: #ffefef;
@@ -150,6 +151,7 @@
     .btn-close:hover {
       opacity: 1;
     }
+
   </style>
 </head>
 <body>
@@ -176,8 +178,7 @@ $role = $session->get('role');
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
-        <!-- Ikon keranjang hanya muncul setelah login -->
-        <?php if ($isLoggedIn): ?>
+        <!-- Ikon keranjang selalu muncul -->
         <li class="nav-item me-3">
           <a href="/cart" class="position-relative">
             <i class="bi bi-cart3 cart-icon"></i>
@@ -186,7 +187,6 @@ $role = $session->get('role');
             <?php endif; ?>
           </a>
         </li>
-        <?php endif; ?>
 
         <?php if ($isLoggedIn): ?>
           <li class="nav-item">
@@ -211,21 +211,56 @@ $role = $session->get('role');
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
 
-  <div class="offcanvas-body">
+<!-- Offcanvas Menu -->
+<div class="offcanvas-body">
     <ul class="navbar-nav">
-      <!-- Selalu muncul -->
-      <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('home') ?>"><i class="bi bi-house-door"></i> HOME</a></li>
 
-      <?php if ($isLoggedIn): ?>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('menu') ?>"><i class="bi bi-list-ul"></i> MENU</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('admin/kelola-menu') ?>"><i class="bi bi-gear"></i> KELOLA MENU</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('daftar_login') ?>"><i class="bi bi-person-check"></i> INFORMASI AKUN</a></li>
-        <li class="nav-item"><a class="nav-link text-dark text-danger fw-semibold" href="<?= site_url('logout') ?>"><i class="bi bi-box-arrow-right"></i> LOGOUT</a></li>
-      <?php else: ?>  
-        <li class="nav-item"><a class="nav-link text-dark" href="<?= site_url('login') ?>"><i class="bi bi-box-arrow-in-right"></i> LOGIN</a></li>
-      <?php endif; ?>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="<?= site_url('home') ?>">
+                <i class="bi bi-house-door"></i> HOME
+            </a>
+        </li>
+
+        <?php if ($isLoggedIn): ?>
+
+            <!-- MENU khusus admin & pemilik -->
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="<?= site_url('menu') ?>">
+                    <i class="bi bi-list-ul"></i> MENU
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="<?= site_url('admin/kelola-menu') ?>">
+                    <i class="bi bi-gear"></i> KELOLA MENU
+                </a>
+            </li>
+
+            <!-- Hanya PEMILIK -->
+            <?php if ($role === 'pemilik'): ?>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="<?= site_url('daftar_login') ?>">
+                    <i class="bi bi-person-check"></i> INFORMASI AKUN
+                </a>
+            </li>
+            <?php endif; ?>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark text-danger fw-semibold" href="<?= site_url('logout') ?>">
+                    <i class="bi bi-box-arrow-right"></i> LOGOUT
+                </a>
+            </li>
+
+        <?php else: ?>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="<?= site_url('login') ?>">
+                    <i class="bi bi-box-arrow-in-right"></i> LOGIN
+                </a>
+            </li>
+        <?php endif; ?>
+
     </ul>
-  </div>
+</div>
 </div>
 
 <main>
