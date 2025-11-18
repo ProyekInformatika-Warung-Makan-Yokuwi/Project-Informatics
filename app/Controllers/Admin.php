@@ -7,11 +7,13 @@ use App\Models\AdminModel;
 
 class Admin extends BaseController
 {
-    // ✅ Halaman utama kelola menu
+    // =========================
+    // HALAMAN KELOLA MENU
+    // =========================
     public function kelolaMenu()
     {
-        // Hanya admin yang boleh
-        if (session()->get('role') !== 'admin') {
+        // ❗ Admin dan pemilik boleh akses
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
             return redirect()->to('/login')->with('error', 'Akses ditolak');
         }
 
@@ -24,39 +26,39 @@ class Admin extends BaseController
         return view('kelola_menu', $data);
     }
 
-    // ✅ Halaman daftar admin
+    // =========================
+    // HALAMAN INFORMASI AKUN
+    // =========================
     public function daftarLogin()
     {
-        // Cek jika hanya admin yang dapat mengakses
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        // ❗ HANYA pemilik yang boleh akses
+        if (session()->get('role') !== 'pemilik') {
+            return redirect()->to('/')->with('error', 'Anda tidak memiliki izin mengakses halaman ini.');
         }
 
-        // Mengambil data admin dari model
         $adminModel = new AdminModel();
-        
-        // Ambil data session untuk status login dan informasi pengguna
-        $isLoggedIn = session()->get('isLoggedIn');
-        $username = session()->get('username'); // Mengambil username dari session
-        $role = session()->get('role');
-        $email = session()->get('email'); // Ambil email dari session
 
-        // Mengirim data ke view
         $data = [
             'title' => 'Daftar Akun Admin',
             'admins' => $adminModel->getAllAdmins(),
-            'isLoggedIn' => $isLoggedIn,
-            'username' => $username,
-            'role' => $role,
-            'email' => $email
+            'isLoggedIn' => session()->get('isLoggedIn'),
+            'username'   => session()->get('username'),
+            'role'       => session()->get('role'),
+            'email'      => session()->get('email')
         ];
 
         return view('daftar_login', $data);
     }
 
-    // ✅ Halaman edit menu
+    // =========================
+    // EDIT MENU
+    // =========================
     public function editMenu($idMenu)
     {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        }
+
         $menuModel = new MenuModel();
         $menu = $menuModel->find($idMenu);
 
@@ -66,23 +68,28 @@ class Admin extends BaseController
 
         $data = [
             'title' => 'Edit Menu',
-            'menu' => $menu,
+            'menu'  => $menu,
         ];
 
         return view('kelola_menu_edit', $data);
     }
 
-    // ✅ Proses update menu
+    // =========================
+    // UPDATE MENU
+    // =========================
     public function updateMenu($idMenu)
     {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        }
+
         $menuModel = new MenuModel();
 
         $data = [
-            'namaMenu' => $this->request->getPost('namaMenu'),
+            'namaMenu'  => $this->request->getPost('namaMenu'),
             'hargaMenu' => $this->request->getPost('hargaMenu'),
         ];
 
-        // Upload gambar baru jika ada
         $gambar = $this->request->getFile('gambar');
         if ($gambar && $gambar->isValid() && !$gambar->hasMoved()) {
             $newName = $gambar->getRandomName();
@@ -94,38 +101,48 @@ class Admin extends BaseController
         return redirect()->to('/admin/kelola-menu')->with('success', 'Menu berhasil diperbarui!');
     }
 
-    // ✅ Hapus menu
+    // =========================
+    // HAPUS MENU
+    // =========================
     public function deleteMenu($idMenu)
     {
-        $menuModel = new MenuModel();
-        $menuModel->delete($idMenu);
-        return redirect()->to('/admin/kelola-menu')->with('success', 'Menu berhasil dihapus!');
-    }
-
-    // ✅ Form tambah menu baru
-    public function tambahMenu()
-    {
-        if (session()->get('role') !== 'admin') {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
             return redirect()->to('/login')->with('error', 'Akses ditolak');
         }
 
-        $data = [
-            'title' => 'Tambah Menu Baru'
-        ];
+        $menuModel = new MenuModel();
+        $menuModel->delete($idMenu);
 
-        return view('kelola_menu_tambah', $data);
+        return redirect()->to('/admin/kelola-menu')->with('success', 'Menu berhasil dihapus!');
     }
 
-    // ✅ Proses simpan menu baru
+    // =========================
+    // TAMBAH MENU BARU
+    // =========================
+    public function tambahMenu()
+    {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        }
+
+        return view('kelola_menu_tambah', ['title' => 'Tambah Menu Baru']);
+    }
+
+    // =========================
+    // SIMPAN MENU BARU
+    // =========================
     public function simpanMenu()
     {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return redirect()->to('/login')->with('error', 'Akses ditolak');
+        }
+
         $menuModel = new MenuModel();
-
-        $namaMenu = $this->request->getPost('namaMenu');
+        $namaMenu  = $this->request->getPost('namaMenu');
         $hargaMenu = $this->request->getPost('hargaMenu');
-        $gambar = $this->request->getFile('gambar');
 
-        if ($gambar && $gambar->isValid() && !$gambar->hasMoved()) {
+        $gambar = $this->request->getFile('gambar');
+        if ($gambar && $gambar->isValid()) {
             $newName = $gambar->getRandomName();
             $gambar->move(FCPATH . 'images', $newName);
         } else {
@@ -133,9 +150,9 @@ class Admin extends BaseController
         }
 
         $menuModel->insert([
-            'namaMenu' => $namaMenu,
+            'namaMenu'  => $namaMenu,
             'hargaMenu' => $hargaMenu,
-            'gambar' => $newName
+            'gambar'     => $newName
         ]);
 
         return redirect()->to('/admin/kelola-menu')->with('success', 'Menu baru berhasil ditambahkan!');
