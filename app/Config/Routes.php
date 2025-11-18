@@ -36,7 +36,7 @@ $routes->post('/cart/add', 'Cart::add');
 $routes->get('/cart/remove/(:num)', 'Cart::remove/$1');
 $routes->post('/cart/updateQty/(:num)', 'Cart::updateQty/$1');
 $routes->post('/cart/updateQtyAjax/(:num)', 'Cart::updateQtyAjax/$1');
-$routes->post('/cart/checkout', 'Cart::checkout');
+$routes->post('/cart/checkout', 'Order::checkout');
 
 // =========================
 // ORDER
