@@ -37,6 +37,7 @@
       font-size: 1.6rem;
       color: #fff;
       transition: 0.3s ease;
+      display: block !important; /* Pastikan selalu tampil */
     }
     .cart-icon:hover {
       color: #ffefef;
@@ -150,6 +151,7 @@
     .btn-close:hover {
       opacity: 1;
     }
+
   </style>
 </head>
 <body>
@@ -176,8 +178,7 @@ $role = $session->get('role');
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
-        <!-- Ikon keranjang hanya muncul setelah login -->
-        <?php if ($isLoggedIn): ?>
+        <!-- Ikon keranjang selalu muncul -->
         <li class="nav-item me-3">
           <a href="/cart" class="position-relative">
             <i class="bi bi-cart3 cart-icon"></i>
@@ -186,7 +187,6 @@ $role = $session->get('role');
             <?php endif; ?>
           </a>
         </li>
-        <?php endif; ?>
 
         <?php if ($isLoggedIn): ?>
           <li class="nav-item">

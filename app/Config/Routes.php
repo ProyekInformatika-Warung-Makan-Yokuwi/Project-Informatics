@@ -68,4 +68,3 @@ $routes->post('/admin/kelola-menu/simpan', 'Admin::simpanMenu');
 // Admin
 // =========================
 $routes->get('/daftar_login', 'Admin::daftarLogin');
-
