@@ -19,7 +19,7 @@
       <div class="mb-3">
         <label class="form-label">Gambar Menu</label>
         <input type="file" name="gambar" class="form-control">
-      </div>
+      </div> 
 
       <button type="submit" class="btn btn-danger">➕ Tambah Menu</button>
       <a href="<?= site_url('admin/kelola-menu') ?>" class="btn btn-secondary ms-2">Kembali</a>
