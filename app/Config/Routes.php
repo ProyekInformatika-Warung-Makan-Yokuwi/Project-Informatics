@@ -68,3 +68,15 @@ $routes->post('/admin/kelola-menu/simpan', 'Admin::simpanMenu');
 // Admin
 // =========================
 $routes->get('/daftar_login', 'Admin::daftarLogin');
+
+// =========================
+// CRUD Informasi Akun
+// =========================
+$routes->get('admin/tambah-akun', 'Admin::tambahAkun');
+$routes->post('admin/simpan-akun', 'Admin::simpanAkun');
+
+$routes->get('admin/edit-akun/(:num)', 'Admin::editAkun/$1');
+$routes->post('admin/update-akun/(:num)', 'Admin::updateAkun/$1');
+
+$routes->get('admin/hapus-akun/(:num)', 'Admin::hapusAkun/$1');
+

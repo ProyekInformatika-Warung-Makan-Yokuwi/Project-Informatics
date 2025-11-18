@@ -156,5 +156,83 @@ class Admin extends BaseController
         ]);
 
         return redirect()->to('/admin/kelola-menu')->with('success', 'Menu baru berhasil ditambahkan!');
+
     }
+    public function tambahAkun()
+{
+    if (session()->get('role') !== 'pemilik') {
+        return redirect()->to('/')->with('error', 'Akses ditolak.');
+    }
+
+    return view('akun_tambah', [
+        'title' => 'Tambah Akun Admin'
+    ]);
+}
+public function simpanAkun()
+{
+    if (session()->get('role') !== 'pemilik') {
+        return redirect()->to('/')->with('error', 'Akses ditolak.');
+    }
+
+    $adminModel = new AdminModel();
+
+    $data = [
+        'nama' => $this->request->getPost('nama'),
+        'email' => $this->request->getPost('email'),
+        'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+        'role' => $this->request->getPost('role')
+    ];
+
+    $adminModel->insert($data);
+
+    return redirect()->to('/daftar_login')->with('success', 'Akun berhasil ditambahkan!');
+}
+public function editAkun($id)
+{
+    if (session()->get('role') !== 'pemilik') {
+        return redirect()->to('/')->with('error', 'Akses ditolak.');
+    }
+
+    $adminModel = new AdminModel();
+    $akun = $adminModel->find($id);
+
+    return view('akun_edit', [
+        'title' => 'Edit Akun Admin',
+        'akun' => $akun
+    ]);
+}
+public function updateAkun($id)
+{
+    if (session()->get('role') !== 'pemilik') {
+        return redirect()->to('/')->with('error', 'Akses ditolak.');
+    }
+
+    $adminModel = new AdminModel();
+
+    $data = [
+        'nama' => $this->request->getPost('nama'),
+        'email' => $this->request->getPost('email'),
+        'role' => $this->request->getPost('role')
+    ];
+
+    if ($this->request->getPost('password')) {
+        $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+    }
+
+    $adminModel->update($id, $data);
+
+    return redirect()->to('/daftar_login')->with('success', 'Akun berhasil diperbarui!');
+}
+public function hapusAkun($id)
+{
+    if (session()->get('role') !== 'pemilik') {
+        return redirect()->to('/')->with('error', 'Akses ditolak.');
+    }
+
+    $adminModel = new AdminModel();
+    $adminModel->delete($id);
+
+    return redirect()->to('/daftar_login')->with('success', 'Akun berhasil dihapus!');
+}
+
 }
