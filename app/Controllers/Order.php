@@ -13,25 +13,35 @@ class Order extends Controller
     // 1️⃣ Menampilkan halaman checkout
     // =========================
     public function checkout()
-    {
-        $session = session();
-        $checkoutItem = $session->get('checkoutItem');
+{
+    $selected = $this->request->getPost('selected');
 
-        // Debugging: Pastikan checkoutItem ada di session
-        log_message('debug', 'Checkout Item at Checkout: ' . print_r($checkoutItem, true));
-
-        if (!$checkoutItem) {
-            return redirect()->to('/menu')->with('error', 'Belum ada item yang dipesan.');
-        }
-
-        $data = [
-            'title' => 'Checkout',
-            'item' => $checkoutItem,
-            'total' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
-        ];
-
-        return view('checkout', $data);
+    if (!$selected) {
+        return redirect()->to('/cart')->with('error', 'Pilih minimal 1 item.');
     }
+
+    $cart = session()->get('cart') ?? [];
+
+    $items = [];
+    $total = 0;
+
+    foreach ($cart as $c) {
+        if (in_array($c['id'], $selected)) {
+            $items[] = $c;
+            $total += $c['harga'] * $c['qty'];
+        }
+    }
+
+    if (empty($items)) {
+        return redirect()->to('/menu');
+    }
+
+    return view('checkout', [
+        'items' => $items,
+        'total' => $total
+    ]);
+}
+
 
     // =========================
     // 2️⃣ Menuju halaman pembayaran
