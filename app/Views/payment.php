@@ -92,16 +92,8 @@
             <h5 class="fw-bold text-secondary mb-3">🧾 Ringkasan Pesanan</h5>
             <ul class="list-group list-group-flush mb-3">
               <li class="list-group-item d-flex justify-content-between">
-                <span>Subtotal</span>
-                <strong>Rp <?= number_format($total ?? 0, 0, ',', '.') ?></strong>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <span>Pajak & Biaya</span>
-                <strong>Rp <?= number_format(($total ?? 0) * 0.1, 0, ',', '.') ?></strong>
-              </li>
-              <li class="list-group-item d-flex justify-content-between">
-                <span>Total Akhir</span>
-                <strong class="text-danger">Rp <?= number_format(($total ?? 0) * 1.1, 0, ',', '.') ?></strong>
+                <span>Total Pembayaran</span>
+                <strong class="text-danger">Rp <?= number_format($total ?? 0, 0, ',', '.') ?></strong>
               </li>
             </ul>
             <p class="text-muted small text-center mb-0">

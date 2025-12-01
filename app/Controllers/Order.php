@@ -15,26 +15,72 @@ class Order extends Controller
     public function checkout()
 {
     $selected = $this->request->getPost('selected');
+    $session = session();
+    $checkoutItem = $session->get('checkoutItem');
 
+    // Jika ada checkoutItem di session (dari menu detail), gunakan itu
+    if ($checkoutItem && is_array($checkoutItem)) {
+        if (isset($checkoutItem['idMenu'])) {
+            // Single item dari menu detail
+            $items = [$checkoutItem];
+            $total = (isset($checkoutItem['hargaMenu']) && isset($checkoutItem['qty'])) ?
+                     $checkoutItem['hargaMenu'] * $checkoutItem['qty'] : 0;
+        } elseif (is_array($checkoutItem) && count($checkoutItem) > 0 && isset($checkoutItem[0]['idMenu'])) {
+            // Array of items dari cart
+            $items = $checkoutItem;
+            $total = 0;
+            foreach ($items as $item) {
+                if (is_array($item) && isset($item['hargaMenu']) && isset($item['qty'])) {
+                    $total += $item['hargaMenu'] * $item['qty'];
+                }
+            }
+        } else {
+            // Fallback
+            $items = [];
+            $total = 0;
+        }
+
+        return view('checkout', [
+            'items' => $items,
+            'total' => $total
+        ]);
+    }
+
+    // Jika tidak ada checkoutItem, berarti dari cart dengan selected items
     if (!$selected) {
         return redirect()->to('/cart')->with('error', 'Pilih minimal 1 item.');
     }
 
-    $cart = session()->get('cart') ?? [];
+    $cart = $session->get('cart') ?? [];
 
     $items = [];
     $total = 0;
 
     foreach ($cart as $c) {
-        if (in_array($c['id'], $selected)) {
+        if (is_array($c) && isset($c['id']) && in_array($c['id'], $selected)) {
             $items[] = $c;
-            $total += $c['harga'] * $c['qty'];
+            $total += (isset($c['harga']) && isset($c['qty'])) ? $c['harga'] * $c['qty'] : 0;
         }
     }
 
     if (empty($items)) {
         return redirect()->to('/menu');
     }
+
+    // Simpan item yang dipilih ke session checkoutItem
+    $checkoutItems = [];
+    foreach ($items as $item) {
+        if (is_array($item)) {
+            $checkoutItems[] = [
+                'idMenu' => $item['id'] ?? 0,
+                'namaMenu' => $item['nama'] ?? '',
+                'hargaMenu' => $item['harga'] ?? 0,
+                'qty' => $item['qty'] ?? 1,
+                'gambar' => $item['gambar'] ?? 'default.jpg'
+            ];
+        }
+    }
+    $session->set('checkoutItem', $checkoutItems);
 
     return view('checkout', [
         'items' => $items,
@@ -58,9 +104,26 @@ class Order extends Controller
             return redirect()->to('/menu')->with('error', 'Belum ada item yang dipesan.');
         }
 
+        // Hitung total dari checkoutItem
+        $total = 0;
+        if (is_array($checkoutItem)) {
+            if (isset($checkoutItem[0])) {
+                // Array of items
+                foreach ($checkoutItem as $item) {
+                    $total += $item['hargaMenu'] * $item['qty'];
+                }
+            } else {
+                // Single item
+                $total = $checkoutItem['hargaMenu'] * $checkoutItem['qty'];
+            }
+        } else {
+            // Fallback
+            $total = 0;
+        }
+
         $data = [
             'title' => 'Pembayaran',
-            'total' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
+            'total' => $total
         ];
 
         return view('payment', $data);
@@ -127,6 +190,23 @@ class Order extends Controller
         $session->set('paymentStatus', $status);
         $session->set('paymentMethod', $metode);
 
+        // Hitung total dari checkoutItem dengan validasi ketat
+        $total = 0;
+        if (is_array($checkoutItem)) {
+            if (isset($checkoutItem['idMenu'])) {
+                // Single item
+                $total = (isset($checkoutItem['hargaMenu']) && isset($checkoutItem['qty'])) ?
+                         $checkoutItem['hargaMenu'] * $checkoutItem['qty'] : 0;
+            } elseif (is_array($checkoutItem) && count($checkoutItem) > 0 && isset($checkoutItem[0]['idMenu'])) {
+                // Array of items
+                foreach ($checkoutItem as $item) {
+                    if (is_array($item) && isset($item['hargaMenu']) && isset($item['qty'])) {
+                        $total += $item['hargaMenu'] * $item['qty'];
+                    }
+                }
+            }
+        }
+
         // Simpan pesanan ke tabel `pesanan` tanpa `idAdmin`
         $pesananModel = new PesananModel();
         $dataPesanan = [
@@ -134,24 +214,42 @@ class Order extends Controller
             'tanggalPemesanan' => date('Y-m-d'),
             'metodePembayaran' => $metode,
             'statusPembayaran' => $status,
-            'total' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
+            'total' => $total
         ];
 
         // Insert pesanan dan dapatkan ID pesanan yang baru
         $pesananModel->insert($dataPesanan);
         $idPesanan = $pesananModel->getInsertID();
 
-        // Simpan detail pesanan ke tabel `detailpesanan`
+        // Simpan detail pesanan ke tabel `detailpesanan` dengan validasi ketat
         $detailPesananModel = new DetailPesananModel();
-        $dataDetailPesanan = [
-            'idPesanan' => $idPesanan,
-            'idMenu' => $checkoutItem['idMenu'],
-            'jumlah' => $checkoutItem['qty'],
-            'hargaTransaksi' => $checkoutItem['hargaMenu'],
-            'subTotal' => $checkoutItem['hargaMenu'] * $checkoutItem['qty']
-        ];
-
-        $detailPesananModel->insert($dataDetailPesanan);
+        if (is_array($checkoutItem)) {
+            if (isset($checkoutItem['idMenu'])) {
+                // Single item
+                $dataDetailPesanan = [
+                    'idPesanan' => $idPesanan,
+                    'idMenu' => $checkoutItem['idMenu'] ?? 0,
+                    'jumlah' => $checkoutItem['qty'] ?? 1,
+                    'hargaTransaksi' => $checkoutItem['hargaMenu'] ?? 0,
+                    'subTotal' => ($checkoutItem['hargaMenu'] ?? 0) * ($checkoutItem['qty'] ?? 1)
+                ];
+                $detailPesananModel->insert($dataDetailPesanan);
+            } elseif (is_array($checkoutItem) && count($checkoutItem) > 0 && isset($checkoutItem[0]['idMenu'])) {
+                // Array of items
+                foreach ($checkoutItem as $item) {
+                    if (is_array($item)) {
+                        $dataDetailPesanan = [
+                            'idPesanan' => $idPesanan,
+                            'idMenu' => $item['idMenu'] ?? 0,
+                            'jumlah' => $item['qty'] ?? 1,
+                            'hargaTransaksi' => $item['hargaMenu'] ?? 0,
+                            'subTotal' => ($item['hargaMenu'] ?? 0) * ($item['qty'] ?? 1)
+                        ];
+                        $detailPesananModel->insert($dataDetailPesanan);
+                    }
+                }
+            }
+        }
 
         // Hapus semua item dari keranjang setelah pembayaran
         $session->remove('cart');
