@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 🔥 Update angka badge keranjang di navbar
   function updateCartCount(count) {
-    const badge = document.querySelector('#cart-count');
+    const badge = document.querySelector('.cart-count-ultra');
     if (badge) badge.textContent = count;
   }
 });

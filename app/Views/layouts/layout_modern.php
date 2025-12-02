@@ -123,6 +123,7 @@
       left: 0;
       right: 0;
       z-index: var(--z-fixed);
+      overflow: visible;
     }
 
     .navbar-ultra-modern.scrolled {
@@ -213,10 +214,11 @@
     .cart-container-ultra {
       position: relative;
       display: inline-block;
+      overflow: visible;
     }
 
     .cart-icon-ultra {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       color: white;
       transition: var(--transition-normal);
       padding: var(--spacing-sm);
@@ -233,22 +235,23 @@
 
     .cart-count-ultra {
       position: absolute;
-      top: -8px;
-      right: -8px;
+      top: -10px;
+      right: -10px;
       background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
       color: white;
       font-weight: 700;
       border-radius: var(--radius-full);
-      padding: 4px 8px;
-      font-size: var(--font-size-xs);
-      min-width: 22px;
-      height: 22px;
+      padding: 2px 6px;
+      font-size: 0.65rem;
+      min-width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: var(--shadow-glow);
       animation: pulse-glow 2s infinite;
       border: 2px solid white;
+      z-index: 10;
     }
 
     @keyframes pulse-glow {

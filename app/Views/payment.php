@@ -42,6 +42,7 @@ $total = $total ?? 0;
 <section class="payment-methods-section py-5" style="background: #fff5f5;">
   <div class="container">
     <form id="paymentForm" method="post" action="/order/confirmPayment">
+      <?= csrf_field() ?>
 
       <!-- Payment Methods -->
       <div class="row g-4 mb-5">
