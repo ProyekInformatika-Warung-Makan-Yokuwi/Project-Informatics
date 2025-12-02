@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/layout') ?>
+<?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 
 <section class="py-5">

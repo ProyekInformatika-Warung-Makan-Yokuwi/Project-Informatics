@@ -9,14 +9,20 @@ use CodeIgniter\Controller;
 
 class Order extends Controller
 {
+    protected $session;
+
+    public function __construct()
+    {
+        $this->session = session();
+    }
+
     // =========================
     // 1️⃣ Menampilkan halaman checkout
     // =========================
     public function checkout()
 {
     $selected = $this->request->getPost('selected');
-    $session = session();
-    $checkoutItem = $session->get('checkoutItem');
+    $checkoutItem = $this->session->get('checkoutItem');
 
     // Jika ada checkoutItem di session (dari menu detail), gunakan itu
     if ($checkoutItem && is_array($checkoutItem)) {
@@ -51,7 +57,7 @@ class Order extends Controller
         return redirect()->to('/cart')->with('error', 'Pilih minimal 1 item.');
     }
 
-    $cart = $session->get('cart') ?? [];
+    $cart = $this->session->get('cart') ?? [];
 
     $items = [];
     $total = 0;
@@ -80,7 +86,7 @@ class Order extends Controller
             ];
         }
     }
-    $session->set('checkoutItem', $checkoutItems);
+    $this->session->set('checkoutItem', $checkoutItems);
 
     return view('checkout', [
         'items' => $items,
@@ -94,8 +100,7 @@ class Order extends Controller
     // =========================
     public function payment()
     {
-        $session = session();
-        $checkoutItem = $session->get('checkoutItem');
+        $checkoutItem = $this->session->get('checkoutItem');
 
         // Debugging: Pastikan checkoutItem ada di session
         log_message('debug', 'Checkout Item at Payment: ' . print_r($checkoutItem, true));
@@ -134,7 +139,6 @@ class Order extends Controller
     // =========================
     public function orderNow()
     {
-        $session = session();
 
         $menuId = $this->request->getPost('menu_id');
         $qty = $this->request->getPost('qty');
@@ -154,7 +158,7 @@ class Order extends Controller
             'qty' => $qty,
         ];
 
-        $session->set('checkoutItem', $checkoutItem);
+        $this->session->set('checkoutItem', $checkoutItem);
 
         // Debugging: Pastikan checkoutItem sudah diset dengan benar
         log_message('debug', 'Checkout Item After Order: ' . print_r($checkoutItem, true));
@@ -168,8 +172,7 @@ class Order extends Controller
     public function confirmPayment()
     {
         $metode = $this->request->getPost('metode');
-        $session = session();
-        $checkoutItem = $session->get('checkoutItem');
+        $checkoutItem = $this->session->get('checkoutItem');
 
         // Debugging: Pastikan metode pembayaran dan checkoutItem ada
         log_message('debug', 'Metode Pembayaran: ' . $metode);
@@ -187,8 +190,8 @@ class Order extends Controller
         }
 
         // Simpan status pembayaran ke session
-        $session->set('paymentStatus', $status);
-        $session->set('paymentMethod', $metode);
+        $this->session->set('paymentStatus', $status);
+        $this->session->set('paymentMethod', $metode);
 
         // Hitung total dari checkoutItem dengan validasi ketat
         $total = 0;
@@ -252,11 +255,11 @@ class Order extends Controller
         }
 
         // Hapus semua item dari keranjang setelah pembayaran
-        $session->remove('cart');
-        $session->remove('checkoutItem');
+        $this->session->remove('cart');
+        $this->session->remove('checkoutItem');
 
         // Debugging: Pastikan keranjang dihapus
-        log_message('debug', 'Cart after payment: ' . print_r($session->get('cart'), true));
+        log_message('debug', 'Cart after payment: ' . print_r($this->session->get('cart'), true));
 
         // Redirect ke halaman sukses pembayaran
         return redirect()->to('/order/success');
@@ -267,9 +270,8 @@ class Order extends Controller
     // =========================
     public function success()
     {
-        $session = session();
-        $status = $session->get('paymentStatus');
-        $metode = $session->get('paymentMethod');
+        $status = $this->session->get('paymentStatus');
+        $metode = $this->session->get('paymentMethod');
 
         if (!$status) {
             return redirect()->to('/menu')->with('error', 'Tidak ada data pembayaran ditemukan.');

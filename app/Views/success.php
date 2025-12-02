@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/layout') ?>
+<?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 
 <section class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5 position-relative overflow-hidden">

@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/layout') ?>
+<?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 
 <section class="py-5" style="background: linear-gradient(180deg, #fff6f6 0%, #ffffff 100%); min-height: 100vh;">

@@ -1,79 +1,36 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login - Yokuwi</title>
+<?php $this->setVar('title', 'Login - Yokuwi'); ?>
+<?= $this->extend('layouts/layout_modern') ?>
+<?= $this->section('content') ?>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+/* Custom styles for login page */
+.login-container {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
 
-  <style>
-    /* Navbar dan header konsisten */
-    .navbar-custom {
-      background-color: #c82333;
-      padding-top: 0.6rem;
-      padding-bottom: 0.6rem;
-    }
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
 
-    .navbar-brand {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-decoration: none;
-      color: #fff !important;
-    }
+.btn-danger {
+  background-color: #C6202D;
+  border: none;
+}
 
-    .navbar-brand span {
-      display: block;
-      line-height: 1.1;
-    }
+.btn-danger:hover {
+  background-color: #A81C26;
+}
+</style>
 
-    .navbar-brand .sub {
-      color: #FFDD00;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .navbar-brand .main {
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    /* Body & card */
-    body {
-      background-color: #f8f9fa;
-    }
-
-    .login-card {
-      width: 380px;
-      margin: 80px auto;
-      border-radius: 10px;
-    }
-
-    .btn-danger {
-      background-color: #C6202D;
-      border: none;
-    }
-
-    .btn-danger:hover {
-      background-color: #A81C26;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Header menggunakan gaya navbar Bootstrap -->
-  <nav class="navbar navbar-custom">
-    <div class="container">
-      <a class="navbar-brand" href="<?= base_url('/') ?>">
-        <span class="sub">WARUNG MAKAN</span>
-        <span class="main">YOKUWI JOGJA</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Form login -->
+<div class="login-container">
   <div class="card shadow p-4 login-card">
     <h3 class="text-center text-danger fw-bold mb-3">Login Admin</h3>
 
@@ -101,8 +58,6 @@
       <button type="submit" class="btn btn-danger w-100 fw-bold">MASUK</button>
     </form>
   </div>
+</div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?= $this->endSection() ?>
