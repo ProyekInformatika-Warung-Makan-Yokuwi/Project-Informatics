@@ -23,7 +23,11 @@ class Menu extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Menu tidak ditemukan");
         }
 
+        // Get related menu items (excluding current menu, limit to 4)
+        $relatedMenus = $menuModel->where('idMenu !=', $idMenu)->limit(4)->findAll();
+
         $data['menu'] = $menu;
+        $data['relatedMenus'] = $relatedMenus;
         $data['title'] = 'Detail Menu - ' . $menu['namaMenu'];
 
         // ✅ arahkan ke file view yang benar
