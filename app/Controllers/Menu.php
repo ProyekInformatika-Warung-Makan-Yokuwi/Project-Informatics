@@ -8,8 +8,16 @@ class Menu extends BaseController
     public function index()
     {
         $menuModel = new MenuModel();
-        $data['menuList'] = $menuModel->findAll();
+        $search = $this->request->getGet('search');
+
+        if ($search) {
+            $data['menuList'] = $menuModel->like('namaMenu', $search)->findAll();
+        } else {
+            $data['menuList'] = $menuModel->findAll();
+        }
+
         $data['title'] = 'Daftar Menu Yokuwi';
+        $data['searchQuery'] = $search;
 
         return view('menu', $data);
     }
@@ -39,6 +47,11 @@ class Menu extends BaseController
     {
         $menuModel = new MenuModel();
         $idMenu = $this->request->getPost('idMenu');
+        $qty = $this->request->getPost('quantity') ?? 1;
+
+        // Validasi quantity minimal 1
+        $qty = max(1, (int)$qty);
+
         $menu = $menuModel->find($idMenu);
 
         if (!$menu) {
@@ -52,7 +65,7 @@ class Menu extends BaseController
             'namaMenu' => $menu['namaMenu'],
             'hargaMenu' => $menu['hargaMenu'],
             'gambar' => $menu['gambar'],
-            'qty' => 1
+            'qty' => $qty
         ]);
 
         // Arahkan ke halaman checkout

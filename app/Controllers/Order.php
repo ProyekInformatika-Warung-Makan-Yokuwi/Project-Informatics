@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PesananModel;
 use App\Models\DetailPesananModel;
 use App\Models\MenuModel;
+use App\Models\AdminModel;
 use CodeIgniter\Controller;
 
 class Order extends Controller
@@ -128,7 +129,8 @@ class Order extends Controller
 
         $data = [
             'title' => 'Pembayaran',
-            'total' => $total
+            'total' => $total,
+            'isLoggedIn' => $this->session->get('isLoggedIn')
         ];
 
         return view('payment', $data);
@@ -182,6 +184,19 @@ class Order extends Controller
             return redirect()->back()->with('error', 'Silakan pilih metode pembayaran dan pastikan pesanan ada.');
         }
 
+        // Validate customer data for non-logged-in users
+        if (!$this->session->get('isLoggedIn')) {
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'namaPelanggan' => 'required|min_length[2]|max_length[100]',
+                'nomorTelepon' => 'required|regex_match[/^[0-9]{10,13}$/]'
+            ]);
+
+            if (!$validation->withRequest($this->request)->run()) {
+                return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            }
+        }
+
         // Tentukan status berdasarkan metode pembayaran
         if ($metode === 'qris') {
             $status = 'Lunas (Pembayaran QRIS berhasil)';
@@ -212,8 +227,27 @@ class Order extends Controller
 
         // Simpan pesanan ke tabel `pesanan` tanpa `idAdmin`
         $pesananModel = new PesananModel();
+
+        // Get customer data based on login status
+        if (!$this->session->get('isLoggedIn')) {
+            $namaPelanggan = $this->request->getPost('namaPelanggan');
+            $nomorTelepon = $this->request->getPost('nomorTelepon');
+        } else {
+            // For logged-in users, get the full name from admin table
+            $adminModel = new AdminModel();
+            $userId = $this->session->get('userId'); // Assuming userId is stored in session
+            if ($userId) {
+                $admin = $adminModel->find($userId);
+                $namaPelanggan = $admin ? $admin['nama'] : ($this->session->get('username') ?? 'Pelanggan');
+            } else {
+                $namaPelanggan = $this->session->get('username') ?? 'Pelanggan';
+            }
+            $nomorTelepon = null; // Could be added to user profile later
+        }
+
         $dataPesanan = [
-            'namaPelanggan' => 'Pelanggan',  // Bisa diambil dari session atau form input pelanggan
+            'namaPelanggan' => $namaPelanggan,
+            'nomorTelepon' => $nomorTelepon,
             'tanggalPemesanan' => date('Y-m-d'),
             'metodePembayaran' => $metode,
             'statusPembayaran' => $status,

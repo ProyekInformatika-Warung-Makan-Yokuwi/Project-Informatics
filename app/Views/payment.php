@@ -44,6 +44,42 @@ $total = $total ?? 0;
     <form id="paymentForm" method="post" action="/order/confirmPayment">
       <?= csrf_field() ?>
 
+      <!-- Customer Data Form (only for non-logged-in users) -->
+      <?php if (!$isLoggedIn): ?>
+      <div class="row g-4 mb-5">
+        <div class="col-12">
+          <div class="customer-data-card animate__animated animate__fadeInUp">
+            <div class="card-header-custom">
+              <h5 class="card-title-custom">
+                <i class="bi bi-person-fill me-2"></i>Data Pelanggan
+              </h5>
+              <p class="card-subtitle-custom">Silakan isi data diri Anda untuk melanjutkan pembayaran</p>
+            </div>
+            <div class="card-body-custom">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="namaPelanggan" class="form-label-custom">Nama Lengkap</label>
+                  <input type="text" class="form-control-custom" id="namaPelanggan" name="namaPelanggan"
+                         placeholder="Masukkan nama lengkap" required>
+                  <div class="invalid-feedback">
+                    Nama lengkap wajib diisi.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="nomorTelepon" class="form-label-custom">Nomor Telepon</label>
+                  <input type="tel" class="form-control-custom" id="nomorTelepon" name="nomorTelepon"
+                         placeholder="Contoh: 081234567890" pattern="[0-9]{10,13}" required>
+                  <div class="invalid-feedback">
+                    Nomor telepon harus berupa angka dan minimal 10 digit.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endif; ?>
+
       <!-- Payment Methods -->
       <div class="row g-4 mb-5">
         <!-- Tunai Payment Method -->
@@ -334,6 +370,69 @@ $total = $total ?? 0;
 .qris-code {
   max-width: 200px;
   width: 100%;
+}
+
+/* Customer Data Card */
+.customer-data-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.05);
+  transition: all 0.3s ease;
+}
+
+.customer-data-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(220, 53, 69, 0.15);
+}
+
+.card-header-custom {
+  border-bottom: 2px solid rgba(220, 53, 69, 0.1);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-title-custom {
+  color: #dc3545;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle-custom {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.card-body-custom {
+  padding: 0;
+}
+
+.form-label-custom {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-control-custom {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-control-custom:focus {
+  border-color: #dc3545;
+  background: white;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-control-custom:invalid {
+  border-color: #dc3545;
 }
 
 /* Payment Summary */

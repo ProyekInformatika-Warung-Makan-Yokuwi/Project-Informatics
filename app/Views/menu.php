@@ -1,4 +1,5 @@
 <?php $this->setVar('title', 'Menu - Warung Makan Yokuwi'); ?>
+<?php $this->setVar('showSearch', true); ?>
 <?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 

@@ -1,16 +1,14 @@
-# TODO: Fix Cart Icon and Badge
+# TODO List - Project Informatics
 
-## Tasks
-- [x] Fix CSS positioning in layout_modern.php to prevent clipping
-- [x] Update cart count selector in menu.php for proper updates
-- [x] Make cart icon smaller and ensure it's not cut off
-- [x] Test badge visibility with large numbers
-- [ ] Test badge visibility with large numbers
+## Bug Fixes
+- [x] Fix quantity issue in menu detail order now - Menu.php orderNow method now retrieves quantity from POST data instead of hardcoding to 1
 
-## Details
-- Badge class: .cart-count-ultra
-- Icon class: .cart-icon-ultra
-- Current positioning: top: -10px; right: -10px; (fixed)
-- Parent container needs overflow: visible (added)
-- Update function targets wrong selector (#cart-count vs .cart-count-ultra) (fixed)
-- Icon size: reduced from 1.8rem to 1.5rem
+## Pending Tasks
+- [ ] Test the quantity fix by ordering from menu detail page
+- [ ] Verify checkout displays correct quantity and total
+- [ ] Test payment flow with correct quantities
+
+## Notes
+- The issue was in Menu.php orderNow method hardcoding qty=1
+- Fixed by adding $qty = $this->request->getPost('quantity') ?? 1;
+- Added validation to ensure qty >= 1

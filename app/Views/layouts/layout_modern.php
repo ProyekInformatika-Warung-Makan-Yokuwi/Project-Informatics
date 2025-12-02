@@ -210,6 +210,62 @@
       box-shadow: var(--shadow-md);
     }
 
+    /* Ultra Modern Search */
+    .navbar-search-center {
+      flex: 1;
+      max-width: 400px;
+      margin: 0 var(--spacing-lg);
+    }
+
+    .search-input-group {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-normal);
+    }
+
+    .search-input-group:focus-within {
+      box-shadow: var(--shadow-lg);
+      transform: scale(1.02);
+    }
+
+    .search-input-ultra {
+      border: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-primary);
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      border-radius: 0;
+    }
+
+    .search-input-ultra:focus {
+      background: white;
+      color: var(--text-primary);
+      box-shadow: none;
+    }
+
+    .search-input-ultra::placeholder {
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+
+    .btn-search-ultra {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-radius: 0;
+      transition: var(--transition-normal);
+      font-weight: 600;
+    }
+
+    .btn-search-ultra:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      transform: scale(1.05);
+      color: white;
+    }
+
     /* Ultra Modern Cart */
     .cart-container-ultra {
       position: relative;
@@ -695,6 +751,10 @@
         padding: var(--spacing-xs) var(--spacing-md);
       }
 
+      .navbar-search-center {
+        display: none; /* Hide search bar on mobile */
+      }
+
       .footer-content-ultra {
         grid-template-columns: 1fr;
         text-align: center;
@@ -706,6 +766,13 @@
 
       main {
         padding-top: 100px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .navbar-search-center {
+        max-width: 300px;
+        margin: 0 var(--spacing-sm);
       }
     }
 
@@ -797,6 +864,22 @@ $role = $session->get('role');
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavUltra">
+      <!-- Search Bar in Center (only on menu page) -->
+      <?php if ($this->getData()['showSearch'] ?? false): ?>
+        <div class="navbar-search-center mx-auto">
+          <form class="d-flex" action="/menu" method="get">
+            <div class="input-group search-input-group">
+              <input class="form-control search-input-ultra" type="search" name="search"
+                     placeholder="Cari menu..." aria-label="Search"
+                     value="<?= esc($this->getData()['searchQuery'] ?? '') ?>">
+              <button class="btn btn-search-ultra" type="submit">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      <?php endif; ?>
+
       <ul class="navbar-nav navbar-nav-ultra ms-auto align-items-center">
         <li class="nav-item">
           <a class="nav-link nav-link-ultra" href="<?= base_url('/') ?>">Beranda</a>
