@@ -1,14 +1,8 @@
-# TODO List - Project Informatics
-
-## Bug Fixes
-- [x] Fix quantity issue in menu detail order now - Menu.php orderNow method now retrieves quantity from POST data instead of hardcoding to 1
-
-## Pending Tasks
-- [ ] Test the quantity fix by ordering from menu detail page
-- [ ] Verify checkout displays correct quantity and total
-- [ ] Test payment flow with correct quantities
-
-## Notes
-- The issue was in Menu.php orderNow method hardcoding qty=1
-- Fixed by adding $qty = $this->request->getPost('quantity') ?? 1;
-- Added validation to ensure qty >= 1
+- [ ] Modify downloadNota method in app/Controllers/Order.php to enhance PDF template:
+  - Add logo at the top center
+  - Use different font sizes and weights for hierarchy
+  - Add light gray background for header
+  - Improve table with full borders, centered headers, right-aligned prices
+  - Add more spacing between sections
+  - Center footer with thank you message
+  - Ensure proper alignment and margins

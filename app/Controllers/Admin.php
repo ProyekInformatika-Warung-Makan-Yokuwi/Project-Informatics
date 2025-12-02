@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MenuModel;
 use App\Models\AdminModel;
+use App\Models\NotificationModel;
 
 class Admin extends BaseController
 {
@@ -234,5 +235,54 @@ public function hapusAkun($id)
 
     return redirect()->to('/daftar_login')->with('success', 'Akun berhasil dihapus!');
 }
+
+    // =========================
+    // GET NOTIFICATIONS (AJAX)
+    // =========================
+    public function getNotifications()
+    {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return $this->response->setJSON(['error' => 'Unauthorized'])->setStatusCode(403);
+        }
+
+        $notificationModel = new NotificationModel();
+        $notifications = $notificationModel->getUnreadNotifications();
+        $count = $notificationModel->getUnreadCount();
+
+        return $this->response->setJSON([
+            'notifications' => $notifications,
+            'count' => $count
+        ]);
+    }
+
+    // =========================
+    // MARK NOTIFICATION AS READ
+    // =========================
+    public function markNotificationRead($id)
+    {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return $this->response->setJSON(['error' => 'Unauthorized'])->setStatusCode(403);
+        }
+
+        $notificationModel = new NotificationModel();
+        $notificationModel->markAsRead($id);
+
+        return $this->response->setJSON(['success' => true]);
+    }
+
+    // =========================
+    // MARK ALL NOTIFICATIONS AS READ
+    // =========================
+    public function markAllRead()
+    {
+        if (!in_array(session()->get('role'), ['admin', 'pemilik'])) {
+            return $this->response->setJSON(['error' => 'Unauthorized'])->setStatusCode(403);
+        }
+
+        $notificationModel = new NotificationModel();
+        $notificationModel->where('is_read', 0)->set(['is_read' => 1])->update();
+
+        return $this->response->setJSON(['success' => true]);
+    }
 
 }

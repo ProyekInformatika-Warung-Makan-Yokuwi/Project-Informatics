@@ -52,6 +52,11 @@ $routes->post('/order/confirmPayment', 'Order::confirmPayment');
 $routes->get('/order/payment_success', 'Order::paymentSuccess');
 $routes->get('/order/success', 'Order::success');
 
+// ✅ download nota PDF
+$routes->get('/order/downloadNota/(:num)', 'Order::downloadNota/$1');
+
+
+
 // =========================
 // Kelola Menu
 // =========================

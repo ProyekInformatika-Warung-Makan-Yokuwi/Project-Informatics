@@ -887,6 +887,7 @@ $role = $session->get('role');
         <li class="nav-item">
           <a class="nav-link nav-link-ultra" href="<?= site_url('menu') ?>">Menu</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link nav-link-ultra cart-container-ultra" href="/cart">
             <i class="bi bi-cart3 cart-icon-ultra"></i>
@@ -897,6 +898,27 @@ $role = $session->get('role');
         </li>
 
         <?php if ($isLoggedIn): ?>
+          <?php if ($role === 'admin' || $role === 'pemilik'): ?>
+            <li class="nav-item dropdown">
+              <a class="nav-link nav-link-ultra cart-container-ultra position-relative dropdown-toggle" href="#" id="notificationIcon" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-bell cart-icon-ultra"></i>
+                <span id="notificationBadge" class="cart-count-ultra" style="display: none;">0</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-ultra dropdown-menu-end" id="notificationDropdown" style="min-width: 300px;">
+                <li><h6 class="dropdown-header">Notifikasi</h6></li>
+                <li><hr class="dropdown-divider dropdown-divider-ultra"></li>
+                <li id="notificationList">
+                  <a class="dropdown-item dropdown-item-ultra text-center text-muted" href="#">
+                    <small>Memuat notifikasi...</small>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider dropdown-divider-ultra"></li>
+                <li><a class="dropdown-item dropdown-item-ultra text-center" href="#" id="markAllRead">
+                  <small>Tandai Semua Dibaca</small>
+                </a></li>
+              </ul>
+            </li>
+          <?php endif; ?>
           <li class="nav-item user-menu-ultra dropdown">
             <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
               <div class="user-avatar-ultra">
