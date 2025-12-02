@@ -1,7 +1,15 @@
 <?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 
-<section class="py-5" style="background: linear-gradient(180deg, #fff6f6 0%, #ffffff 100%); min-height: 100vh;">
+<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #fff6f6 0%, #ffe6e6 50%, #ffffff 100%); min-height: 100vh;">
+  <!-- Floating decorative elements -->
+  <div class="floating-stars">
+    <div class="star star1">✨</div>
+    <div class="star star2">💳</div>
+    <div class="star star3">💰</div>
+    <div class="star star4">⭐</div>
+    <div class="star star5">🎉</div>
+  </div>
   <div class="container">
     
     <!-- ✅ Progress Steps (3 tahap: Checkout - Pembayaran - Selesai) -->
@@ -70,7 +78,9 @@
               <!-- QRIS Section -->
               <div id="qrisSection" class="text-center d-none fade-in mb-4">
                 <p class="text-muted mb-3">Scan kode QR di bawah menggunakan e-wallet atau mobile banking Anda:</p>
-                <img src="<?= base_url('images/qris_example.png') ?>" alt="QRIS" class="img-fluid rounded-3 shadow mb-3" width="230">
+                <div class="qris-container">
+                  <img src="<?= base_url('images/qris_example.png') ?>" alt="QRIS" class="img-fluid rounded-3 shadow mb-3 qris-code" width="230">
+                </div>
                 <p class="fw-semibold text-success mb-4">⚡ Pembayaran akan otomatis terverifikasi setelah berhasil.</p>
               </div>
 

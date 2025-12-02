@@ -1,25 +1,25 @@
 <?= $this->extend('layouts/layout_modern') ?>
 <?= $this->section('content') ?>
 
-<section class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5 position-relative overflow-hidden">
+<section class="min-vh-100 d-flex align-items-center justify-content-center py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+  <!-- Animated background particles -->
+  <div class="particles">
+    <div class="particle particle1">🎉</div>
+    <div class="particle particle2">✨</div>
+    <div class="particle particle3">💫</div>
+    <div class="particle particle4">🎊</div>
+    <div class="particle particle5">⭐</div>
+    <div class="particle particle6">🌟</div>
+  </div>
   <div class="container text-center position-relative">
-    
-    <!-- 🐶 Dog stickers -->
-    <div class="dog-left position-absolute bottom-0 start-0 p-3">
-      <img src="<?= base_url('images/dog_left.gif') ?>" class="dog-sticker-left" alt="Dog Sticker Left">
-    </div>
-
-    <div class="dog-right position-absolute top-0 end-0 p-3">
-      <img src="<?= base_url('images/dog_right.gif') ?>" class="dog-sticker-right" alt="Dog Sticker Right">
-    </div>
 
     <!-- 🎁 Main card -->
     <div class="card border-0 shadow-lg p-5 rounded-5 mx-auto bg-white"
          style="max-width: 550px; z-index: 5; animation: fadeInUp 0.8s ease-out;">
       
-      <!-- ✅ Static checkmark icon -->
+      <!-- ✅ Animated success icon -->
       <div class="success-icon mb-4 mx-auto">
-        <div class="circle bg-success d-flex align-items-center justify-content-center">
+        <div class="circle bg-success d-flex align-items-center justify-content-center pulse-glow">
           <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="white" viewBox="0 0 24 24">
             <path d="M20.285 6.709a1 1 0 0 0-1.414-1.418l-9.192 9.193-4.243-4.243a1 1 0 0 0-1.414 1.414l5 5a1 1 0 0 0 1.414 0l9.849-9.846z"/>
           </svg>
