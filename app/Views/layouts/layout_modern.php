@@ -1199,6 +1199,121 @@ document.addEventListener('DOMContentLoaded', function() {
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-theme');
   }
+
+  // Notification System
+  function loadNotifications() {
+    fetch('/admin/notifications')
+      .then(response => response.json())
+      .then(data => {
+        updateNotificationUI(data);
+      })
+      .catch(error => {
+        console.error('Error loading notifications:', error);
+      });
+  }
+
+  function updateNotificationUI(data) {
+    const badge = document.getElementById('notificationBadge');
+    const list = document.getElementById('notificationList');
+
+    if (data.count > 0) {
+      badge.textContent = data.count;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+
+    if (data.notifications && data.notifications.length > 0) {
+      const notificationItems = data.notifications.map(notification => `
+        <li>
+          <a class="dropdown-item dropdown-item-ultra notification-item" href="#" data-id="${notification.idNotif}">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-muted">${notification.tipeNotifikasi}</small>
+                <p class="mb-1">Pesanan #${notification.idPesanan} menunggu konfirmasi</p>
+                <small class="text-muted">${new Date(notification.waktuDibuat).toLocaleString('id-ID')}</small>
+              </div>
+              <small class="badge bg-warning text-dark">${notification.status}</small>
+            </div>
+          </a>
+        </li>
+      `).join('');
+
+      list.innerHTML = notificationItems + `
+        <li><hr class="dropdown-divider dropdown-divider-ultra"></li>
+        <li><a class="dropdown-item dropdown-item-ultra text-center" href="#" id="markAllRead">
+          <small>Tandai Semua Dibaca</small>
+        </a></li>
+      `;
+    } else {
+      list.innerHTML = `
+        <li><a class="dropdown-item dropdown-item-ultra text-center text-muted" href="#">
+          <small>Tidak ada notifikasi baru</small>
+        </a></li>
+        <li><hr class="dropdown-divider dropdown-divider-ultra"></li>
+        <li><a class="dropdown-item dropdown-item-ultra text-center" href="#" id="markAllRead" style="display: none;">
+          <small>Tandai Semua Dibaca</small>
+        </a></li>
+      `;
+    }
+  }
+
+  function markNotificationRead(id) {
+    fetch(`/admin/notifications/mark-read/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        loadNotifications();
+      }
+    })
+    .catch(error => {
+      console.error('Error marking notification as read:', error);
+    });
+  }
+
+  function markAllNotificationsRead() {
+    fetch('/admin/notifications/mark-all-read', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        loadNotifications();
+      }
+    })
+    .catch(error => {
+      console.error('Error marking all notifications as read:', error);
+    });
+  }
+
+  // Event listeners for notifications
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.notification-item')) {
+      e.preventDefault();
+      const id = e.target.closest('.notification-item').dataset.id;
+      markNotificationRead(id);
+    }
+
+    if (e.target.closest('#markAllRead')) {
+      e.preventDefault();
+      markAllNotificationsRead();
+    }
+  });
+
+  // Load notifications on page load if user is admin/pemilik
+  <?php if ($isLoggedIn && ($role === 'admin' || $role === 'pemilik')): ?>
+    loadNotifications();
+    // Refresh notifications every 30 seconds
+    setInterval(loadNotifications, 30000);
+  <?php endif; ?>
 });
 </script>
 

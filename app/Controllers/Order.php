@@ -248,8 +248,7 @@ class Order extends Controller
         $dataPesanan = [
             'namaPelanggan' => $namaPelanggan,
             'nomorTelepon' => $nomorTelepon,
-            'tanggalPemesanan' => date('Y-m-d'),
-            'waktuPemesanan' => date('H:i:s'),
+            'waktuPemesanan' => date('Y-m-d H:i:s'),
             'metodePembayaran' => $metode,
             'statusPembayaran' => $status,
             'total' => $total
@@ -258,6 +257,15 @@ class Order extends Controller
         // Insert pesanan dan dapatkan ID pesanan yang baru
         $pesananModel->insert($dataPesanan);
         $idPesanan = $pesananModel->getInsertID();
+
+        // Create notification for admin
+        try {
+            $notificationModel = new \App\Models\NotificationModel();
+            $notificationModel->createNotification($idPesanan, 'payment_confirmation');
+        } catch (\Exception $e) {
+            // Log error but don't stop the payment process
+            log_message('error', 'Failed to create notification: ' . $e->getMessage());
+        }
 
         // Simpan order_id ke session agar tidak berubah
         $this->session->set('order_id', $idPesanan);
@@ -330,7 +338,7 @@ class Order extends Controller
 
         // Calculate queue number (orders today with status not completed)
         $today = date('Y-m-d');
-        $queue_number = $pesananModel->where('tanggalPemesanan', $today)
+        $queue_number = $pesananModel->where('DATE(waktuPemesanan)', $today)
                                       ->whereNotIn('statusPembayaran', ['Selesai'])
                                       ->countAllResults() ?: 1; // Default if no data
 
@@ -363,7 +371,6 @@ class Order extends Controller
             'total' => $latestOrder['total'],
             'namaPelanggan' => $latestOrder['namaPelanggan'],
             'nomorTelepon' => $latestOrder['nomorTelepon'],
-            'tanggalPemesanan' => $latestOrder['tanggalPemesanan'],
             'waktuPemesanan' => $latestOrder['waktuPemesanan'],
             'order_items' => $order_items,
             'estimasi_masak' => $estimasi_masak
@@ -449,7 +456,7 @@ class Order extends Controller
 
         // Calculate queue number
         $today = date('Y-m-d');
-        $queue_number = $pesananModel->where('tanggalPemesanan', $today)
+        $queue_number = $pesananModel->where('DATE(waktuPemesanan)', $today)
                                       ->whereNotIn('statusPembayaran', ['Selesai'])
                                       ->countAllResults() ?: 1;
 
@@ -488,7 +495,7 @@ class Order extends Controller
         $pdf->Cell(50, 8, 'Estimasi Masak:', 0, 0);
         $pdf->Cell(0, 8, $estimasi_masak, 0, 1);
         $pdf->Cell(50, 8, 'Tanggal Pemesanan:', 0, 0);
-        $pdf->Cell(0, 8, date('d/m/Y H:i', strtotime($order['tanggalPemesanan'] . ' ' . $order['waktuPemesanan'])), 0, 1);
+        $pdf->Cell(0, 8, date('d/m/Y H:i', strtotime($order['waktuPemesanan'])), 0, 1);
         $pdf->Ln(5);
 
         // Customer Info

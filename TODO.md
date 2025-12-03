@@ -1,8 +1,9 @@
-- [ ] Modify downloadNota method in app/Controllers/Order.php to enhance PDF template:
-  - Add logo at the top center
-  - Use different font sizes and weights for hierarchy
-  - Add light gray background for header
-  - Improve table with full borders, centered headers, right-aligned prices
-  - Add more spacing between sections
-  - Center footer with thank you message
-  - Ensure proper alignment and margins
+# TODO: Implement Admin Notifications for Guest Payments
+
+## Steps to Complete
+
+- [x] Create NotificationModel.php with notification handling methods
+- [x] Update CreateNotificationsTable migration to define table schema
+- [x] Modify Order.php confirmPayment to insert notification after order creation
+- [x] Run migration to create notifications table
+- [x] Test guest order flow to verify notification creation and visibility in admin panel

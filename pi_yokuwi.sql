@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2025 at 02:53 PM
+-- Generation Time: Dec 03, 2025 at 06:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -106,7 +106,10 @@ INSERT INTO `detailpesanan` (`idPesanan`, `idMenu`, `jumlah`, `hargaTransaksi`, 
 (31, 1, 1, 3000.00, 3000.00),
 (32, 15, 1, 3000.00, 3000.00),
 (33, 3, 1, 2000.00, 2000.00),
-(34, 13, 1, 5000.00, 5000.00);
+(34, 13, 1, 5000.00, 5000.00),
+(35, 3, 1, 2000.00, 2000.00),
+(36, 2, 1, 2000.00, 2000.00),
+(37, 2, 1, 2000.00, 2000.00);
 
 -- --------------------------------------------------------
 
@@ -178,6 +181,30 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `idNotif` int(11) NOT NULL,
+  `idPesanan` int(11) NOT NULL,
+  `tipeNotifikasi` varchar(50) NOT NULL DEFAULT 'payment_confirmation',
+  `status` enum('pending','done','ignored') NOT NULL DEFAULT 'pending',
+  `ditujukanUntuk` varchar(50) NOT NULL DEFAULT 'admin',
+  `waktuDibuat` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`idNotif`, `idPesanan`, `tipeNotifikasi`, `status`, `ditujukanUntuk`, `waktuDibuat`) VALUES
+(1, 35, 'payment_confirmation', 'done', 'admin', '2025-12-02 21:48:57'),
+(2, 36, 'payment_confirmation', 'done', 'admin', '2025-12-02 21:50:22'),
+(3, 37, 'payment_confirmation', 'pending', 'admin', '2025-12-02 21:51:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pesanan`
 --
 
@@ -185,7 +212,7 @@ CREATE TABLE `pesanan` (
   `idPesanan` int(11) NOT NULL,
   `namaPelanggan` varchar(100) NOT NULL,
   `nomorTelepon` varchar(15) DEFAULT NULL,
-  `tanggalPemesanan` date NOT NULL,
+  `waktuPemesanan` timestamp NOT NULL DEFAULT current_timestamp(),
   `metodePembayaran` varchar(50) NOT NULL,
   `statusPembayaran` varchar(50) NOT NULL,
   `total` decimal(12,2) NOT NULL
@@ -195,41 +222,44 @@ CREATE TABLE `pesanan` (
 -- Dumping data for table `pesanan`
 --
 
-INSERT INTO `pesanan` (`idPesanan`, `namaPelanggan`, `nomorTelepon`, `tanggalPemesanan`, `metodePembayaran`, `statusPembayaran`, `total`) VALUES
-(1, 'Pelanggan', NULL, '2025-11-06', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 9000.00),
-(2, 'Pelanggan', NULL, '2025-11-06', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 9000.00),
-(3, 'Pelanggan', NULL, '2025-11-06', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(4, 'Pelanggan', NULL, '2025-11-06', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(5, 'Pelanggan', NULL, '2025-11-06', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(6, 'Pelanggan', NULL, '2025-11-07', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(7, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(8, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(9, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(10, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(11, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(12, 'Pelanggan', NULL, '2025-11-11', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(13, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(14, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(15, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(16, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(17, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(18, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(19, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 11000.00),
-(20, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 11000.00),
-(21, 'Pelanggan', NULL, '2025-12-01', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
-(22, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
-(23, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 7000.00),
-(24, 'Pelanggan', NULL, '2025-12-02', 'qris', 'Lunas (Pembayaran QRIS berhasil)', 2000.00),
-(25, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(26, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 1000.00),
-(27, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
-(28, 'Pelanggan', NULL, '2025-12-02', 'qris', 'Lunas (Pembayaran QRIS berhasil)', 6000.00),
-(29, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(30, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 14000.00),
-(31, 'Pelanggan', NULL, '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(32, 'Dimas', '081331630803', '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
-(33, 'Dimas', '081331630803', '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
-(34, 'Carlo', '081331630803', '2025-12-02', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 5000.00);
+INSERT INTO `pesanan` (`idPesanan`, `namaPelanggan`, `nomorTelepon`, `waktuPemesanan`, `metodePembayaran`, `statusPembayaran`, `total`) VALUES
+(1, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 9000.00),
+(2, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 9000.00),
+(3, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(4, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(5, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(6, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(7, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(8, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(9, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(10, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(11, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(12, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(13, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(14, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(15, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(16, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(17, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(18, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(19, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 11000.00),
+(20, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 11000.00),
+(21, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
+(22, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
+(23, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 7000.00),
+(24, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'qris', 'Lunas (Pembayaran QRIS berhasil)', 2000.00),
+(25, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(26, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 1000.00),
+(27, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 4000.00),
+(28, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'qris', 'Lunas (Pembayaran QRIS berhasil)', 6000.00),
+(29, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(30, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 14000.00),
+(31, 'Pelanggan', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(32, 'Dimas', '081331630803', '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 3000.00),
+(33, 'Dimas', '081331630803', '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(34, 'Carlo', '081331630803', '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 5000.00),
+(35, 'Dimas', '081331630803', '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(36, 'Carlo', NULL, '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00),
+(37, 'Dimas', '081331630803', '2025-12-03 05:03:23', 'tunai', 'Menunggu Konfirmasi Admin (Pembayaran Tunai)', 2000.00);
 
 --
 -- Indexes for dumped tables
@@ -262,6 +292,13 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`idNotif`),
+  ADD KEY `idPesanan` (`idPesanan`);
+
+--
 -- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
@@ -290,10 +327,16 @@ ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `idNotif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `idPesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idPesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables
@@ -305,6 +348,12 @@ ALTER TABLE `pesanan`
 ALTER TABLE `detailpesanan`
   ADD CONSTRAINT `detailpesanan_ibfk_1` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detailpesanan_ibfk_2` FOREIGN KEY (`idMenu`) REFERENCES `menu` (`idMenu`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD CONSTRAINT `notifikasi_fk_pesanan` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -85,3 +85,11 @@ $routes->post('admin/update-akun/(:num)', 'Admin::updateAkun/$1');
 
 $routes->get('admin/hapus-akun/(:num)', 'Admin::hapusAkun/$1');
 
+// =========================
+// NOTIFICATIONS
+// =========================
+$routes->get('/admin/notifications', 'Admin::getNotifications');
+$routes->post('/admin/notifications/mark-read/(:num)', 'Admin::markNotificationRead/$1');
+$routes->post('/admin/notifications/mark-all-read', 'Admin::markAllRead');
+
+

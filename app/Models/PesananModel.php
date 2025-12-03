@@ -8,5 +8,5 @@ class PesananModel extends Model
 {
     protected $table = 'pesanan';
     protected $primaryKey = 'idPesanan';
-    protected $allowedFields = ['idAdmin', 'namaPelanggan', 'nomorTelepon', 'tanggalPemesanan', 'waktuPemesanan', 'metodePembayaran', 'statusPembayaran', 'total'];
+    protected $allowedFields = ['namaPelanggan', 'nomorTelepon', 'waktuPemesanan', 'metodePembayaran', 'statusPembayaran', 'total'];
 }
