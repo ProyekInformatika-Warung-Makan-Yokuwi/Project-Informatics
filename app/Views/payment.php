@@ -8,7 +8,7 @@ $total = $total ?? 0;
 ?>
 
 <!-- Hero Section Payment -->
-<section class="payment-hero-section py-5" style="background: linear-gradient(135deg, #c82333 0%, #dc3545 50%, #e74c3c 100%);">
+<section class="payment-hero-section py-5">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 text-center text-lg-start">
@@ -39,14 +39,13 @@ $total = $total ?? 0;
 </section>
 
 <!-- Payment Methods Section -->
-<section class="payment-methods-section py-5" style="background: #fff5f5;">
   <div class="container">
     <form id="paymentForm" method="post" action="/order/confirmPayment">
       <?= csrf_field() ?>
 
       <!-- Customer Data Form (only for non-logged-in users) -->
       <?php if (!$isLoggedIn): ?>
-      <div class="row g-4 mb-5">
+      <div class="row g-4 mb-5 mt-4">
         <div class="col-12">
           <div class="customer-data-card animate__animated animate__fadeInUp">
             <div class="card-header-custom">
@@ -81,7 +80,7 @@ $total = $total ?? 0;
       <?php endif; ?>
 
       <!-- Payment Methods -->
-      <div class="row g-4 mb-5">
+      <div class="row g-4 mb-5 mt-5">
         <!-- Tunai Payment Method -->
         <div class="col-12">
           <div class="payment-method-card animate__animated animate__fadeInUp">
@@ -99,8 +98,8 @@ $total = $total ?? 0;
               <!-- Payment Details -->
               <div class="col">
                 <div class="payment-method-details">
-                  <h5 class="payment-method-title fw-bold text-dark mb-1">Tunai</h5>
-                  <p class="payment-method-desc text-muted mb-2">Bayar langsung di kasir restoran</p>
+                  <h5 class="payment-method-title fw-bold text-dark mb-1" style="color: var(--text-primary) !important;">Tunai</h5>
+                  <p class="payment-method-desc text-muted mb-2" style="color: var(--text-secondary) !important;">Bayar langsung di kasir restoran</p>
                   <div class="payment-method-category">
                     <span class="badge bg-success rounded-pill">
                       <i class="bi bi-cash me-1"></i>Langsung
@@ -163,8 +162,8 @@ $total = $total ?? 0;
               <div class="row align-items-center">
                 <div class="col-md-6">
                   <div class="qris-info">
-                    <h6 class="fw-bold text-primary mb-2">Scan Kode QR</h6>
-                    <p class="text-muted small mb-3">Gunakan aplikasi e-wallet atau mobile banking untuk scan kode QR berikut:</p>
+                    <h6 class="fw-bold text-primary mb-2" style="color: var(--info-color) !important;">Scan Kode QR</h6>
+                    <p class="text-muted small mb-3" style="color: var(--text-secondary) !important;">Gunakan aplikasi e-wallet atau mobile banking untuk scan kode QR berikut:</p>
                     <div class="qris-features">
                       <div class="d-flex align-items-center mb-1">
                         <i class="bi bi-check-circle text-success me-2"></i>
@@ -245,6 +244,12 @@ $total = $total ?? 0;
 .payment-hero-section {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
+}
+
+/* Dark Mode Payment Hero Section */
+[data-theme="dark"] .payment-hero-section {
+  background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-color) 50%, var(--primary-dark) 100%);
 }
 
 .payment-hero-section::before {
@@ -285,23 +290,38 @@ $total = $total ?? 0;
 
 /* Payment Method Cards */
 .payment-method-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(220, 53, 69, 0.1);
+  box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
-  border: 1px solid rgba(220, 53, 69, 0.05);
+  border: 1px solid var(--border-color);
   cursor: pointer;
 }
 
 .payment-method-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(220, 53, 69, 0.15);
+  box-shadow: var(--shadow-lg);
 }
 
 .payment-method-card.selected {
-  border-color: #dc3545;
-  background: linear-gradient(135deg, #fff5f5, #fef2f2);
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.05), rgba(243, 156, 18, 0.05));
+}
+
+/* Dark Mode Payment Method Cards */
+[data-theme="dark"] .payment-method-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .payment-method-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .payment-method-card.selected {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(243, 156, 18, 0.1));
 }
 
 .payment-method-image {
@@ -354,17 +374,29 @@ $total = $total ?? 0;
 
 /* QRIS Details */
 .qris-details {
-  background: #f8f9fa;
+  background: var(--light-bg);
   border-radius: 15px;
   padding: 1.5rem;
-  border: 1px solid rgba(220, 53, 69, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark Mode QRIS Details */
+[data-theme="dark"] .qris-details {
+  background: var(--medium-gray);
+  border-color: var(--border-color);
 }
 
 .qris-code-container {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
+}
+
+/* Dark Mode QRIS Code Container */
+[data-theme="dark"] .qris-code-container {
+  background: var(--card-bg);
+  box-shadow: var(--shadow-md);
 }
 
 .qris-code {
@@ -374,17 +406,28 @@ $total = $total ?? 0;
 
 /* Customer Data Card */
 .customer-data-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(220, 53, 69, 0.1);
-  border: 1px solid rgba(220, 53, 69, 0.05);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
 
 .customer-data-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(220, 53, 69, 0.15);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Dark Mode Customer Data Card */
+[data-theme="dark"] .customer-data-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .customer-data-card:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .card-header-custom {
@@ -416,6 +459,19 @@ $total = $total ?? 0;
   font-size: 0.95rem;
 }
 
+/* Dark Mode Text Contrast for Customer Data Card */
+[data-theme="dark"] .card-title-custom {
+  color: #ff6b7d;
+}
+
+[data-theme="dark"] .card-subtitle-custom {
+  color: #adb5bd;
+}
+
+[data-theme="dark"] .form-label-custom {
+  color: #f8f9fa;
+}
+
 .form-control-custom {
   border: 2px solid #e9ecef;
   border-radius: 12px;
@@ -435,26 +491,55 @@ $total = $total ?? 0;
   border-color: #dc3545;
 }
 
+/* Dark Mode Input Fields */
+[data-theme="dark"] .form-control-custom {
+  background: var(--medium-gray);
+  border-color: var(--border-color);
+  color: #f8f9fa;
+}
+
+[data-theme="dark"] .form-control-custom:focus {
+  background: var(--medium-gray);
+  color: #f8f9fa;
+}
+
 /* Payment Summary */
 .payment-summary-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  border: 1px solid rgba(220, 53, 69, 0.05);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark Mode Payment Summary */
+[data-theme="dark"] .payment-summary-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-lg);
 }
 
 .summary-stats {
   padding: 1rem;
-  background: #fff5f5;
+  background: var(--light-bg);
   border-radius: 12px;
+}
+
+/* Dark Mode Summary Stats */
+[data-theme="dark"] .summary-stats {
+  background: var(--medium-gray);
 }
 
 .payment-total {
   padding: 1rem;
-  background: linear-gradient(135deg, #fff5f5, #fef2f2);
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.05), rgba(243, 156, 18, 0.05));
   border-radius: 12px;
-  border: 2px solid rgba(220, 53, 69, 0.1);
+  border: 2px solid rgba(231, 76, 60, 0.1);
+}
+
+/* Dark Mode Payment Total */
+[data-theme="dark"] .payment-total {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(243, 156, 18, 0.1));
 }
 
 /* Animations */

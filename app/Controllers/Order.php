@@ -59,14 +59,18 @@ class Order extends Controller
     }
 
     $cart = $this->session->get('cart') ?? [];
+    $postQty = $this->request->getPost('qty') ?? []; // Get qty from POST
 
     $items = [];
     $total = 0;
 
     foreach ($cart as $c) {
         if (is_array($c) && isset($c['id']) && in_array($c['id'], $selected)) {
+            // Use qty from POST if available, otherwise from session
+            $qty = isset($postQty[$c['id']]) ? (int)$postQty[$c['id']] : ($c['qty'] ?? 1);
+            $c['qty'] = $qty; // Update the qty in the item
             $items[] = $c;
-            $total += (isset($c['harga']) && isset($c['qty'])) ? $c['harga'] * $c['qty'] : 0;
+            $total += (isset($c['harga']) && isset($qty)) ? $c['harga'] * $qty : 0;
         }
     }
 
@@ -82,7 +86,7 @@ class Order extends Controller
                 'idMenu' => $item['id'] ?? 0,
                 'namaMenu' => $item['nama'] ?? '',
                 'hargaMenu' => $item['harga'] ?? 0,
-                'qty' => $item['qty'] ?? 1,
+                'qty' => $item['qty'] ?? 1, // Now uses the updated qty
                 'gambar' => $item['gambar'] ?? 'default.jpg'
             ];
         }

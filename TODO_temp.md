@@ -1,16 +1,16 @@
-# TODO: Redesign Success Page
+# TODO: Perfect Dark Mode and Light Mode on Menu Detail Page
 
 ## Tasks
-- [x] Update Order::success method to fetch full order details including items
-- [x] Redesign success_new.php with modern, professional layout
-- [x] Add detailed order summary with items list
-- [x] Enhance step-by-step tracking
-- [x] Improve PDF download with full order details
-- [x] Delete success.php
-- [x] Delete payment_success.php
-- [x] Clean up unused CSS in success_new.php
-- [x] Fix checkmark SVG in success_new.php
-- [x] Make PDF download use dynamic data
-- [ ] Test the success page after order
-- [ ] Verify PDF download functionality
-- [ ] Ensure mobile responsiveness
+- [x] Add dark mode CSS rules for hero section (background, text, overlays)
+- [x] Add dark mode styles for menu details section (cards, backgrounds, text)
+- [x] Add dark mode styles for order card (background, borders, text)
+- [x] Add dark mode styles for related items section
+- [x] Update hardcoded colors to use CSS variables
+- [x] Test theme toggle functionality (completed via code review)
+
+## Files to Edit
+- app/Views/menu_detail.php
+
+## Followup
+- Test theme switching on menu detail page
+- Verify all elements adapt properly to both themes

@@ -4,42 +4,59 @@
 <?= $this->section('content') ?>
 
 <!-- Hero Section Menu -->
-<section class="menu-hero-section py-5" style="background: linear-gradient(135deg, #c82333 0%, #dc3545 50%, #e74c3c 100%);">
-  <div class="container">
+<section class="menu-hero-section py-5 position-relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="hero-bg-pattern position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);"></div>
+
+  <!-- Floating Shapes like Home Page -->
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="container position-relative">
     <div class="row align-items-center">
       <div class="col-lg-6 text-center text-lg-start">
-        <h1 class="display-4 fw-bold text-white mb-4 animate__animated animate__fadeIn">Menu Lengkap Yokuwi</h1>
-        <p class="lead text-light mb-4 animate__animated animate__fadeIn animate__delay-1s">
-          Pilih dari berbagai hidangan lezat dan minuman segar yang siap memanjakan lidah Anda
-        </p>
-        <div class="menu-stats animate__animated animate__fadeIn animate__delay-2s">
-          <div class="d-flex justify-content-center justify-content-lg-start gap-4">
-            <div class="stat-item text-center">
-              <div class="stat-number text-warning fw-bold fs-3">50+</div>
-              <div class="stat-label text-light">Variasi Menu</div>
-            </div>
-            <div class="stat-item text-center">
-              <div class="stat-number text-warning fw-bold fs-3">100%</div>
-              <div class="stat-label text-light">Bahan Segar</div>
-            </div>
-            <div class="stat-item text-center">
-              <div class="stat-number text-warning fw-bold fs-3">24/7</div>
-              <div class="stat-label text-light">Tersedia</div>
+        <div class="hero-content-wrapper">
+          <h1 class="display-4 fw-bold text-white mb-4 animate__animated animate__fadeIn text-shadow-lg">
+            Menu Lengkap Yokuwi
+          </h1>
+          <p class="lead text-light mb-4 animate__animated animate__fadeIn animate__delay-1s" style="opacity: 0.9;">
+            Pilih dari berbagai hidangan lezat dan minuman segar yang siap memanjakan lidah Anda
+          </p>
+          <div class="menu-stats animate__animated animate__fadeIn animate__delay-2s">
+            <div class="d-flex justify-content-center justify-content-lg-start gap-4 flex-wrap">
+              <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">50+</div>
+                <div class="stat-label text-light small fw-semibold">Variasi Menu</div>
+              </div>
+              <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">100%</div>
+                <div class="stat-label text-light small fw-semibold">Bahan Segar</div>
+              </div>
+              <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">24/7</div>
+                <div class="stat-label text-light small fw-semibold">Tersedia</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6 text-center mt-4 mt-lg-0">
-        <div class="hero-menu-image animate__animated animate__fadeIn animate__delay-3s">
-          <img src="<?= base_url('images/gambar_tambahan_menu.png') ?>" alt="Menu Yokuwi" class="img-fluid rounded-4 shadow-lg">
+        <div class="hero-menu-image animate__animated animate__fadeIn animate__delay-3s position-relative">
+          <div class="image-glow position-absolute" style="top: -10px; left: -10px; right: -10px; bottom: -10px; background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(243,156,18,0.3)); border-radius: 20px; filter: blur(20px); z-index: 1;"></div>
+          <img src="<?= base_url('images/gambar_tambahan_menu.png') ?>" alt="Menu Yokuwi" class="img-fluid rounded-4 shadow-xl position-relative" style="z-index: 2;">
         </div>
       </div>
     </div>
+
+
   </div>
 </section>
 
 <!-- Menu Categories Section -->
-<section class="menu-categories-section py-5" style="background: #fff5f5;">
+<section class="menu-categories-section py-5">
   <div class="container">
     <!-- Category Tabs -->
     <div class="category-tabs mb-5">
@@ -94,8 +111,8 @@
                          class="card-img-top menu-img">
                   </a>
                   <div class="card-body text-center p-4">
-                    <h5 class="fw-bold text-dark mb-2"><?= esc($menu['namaMenu']) ?></h5>
-                    <p class="text-danger fw-semibold fs-5 mb-4">
+                    <h5 class="fw-bold text-dark mb-2" style="color: var(--text-primary) !important;"><?= esc($menu['namaMenu']) ?></h5>
+                    <p class="text-danger fw-semibold fs-5 mb-4" style="color: var(--primary-color) !important;">
                       Rp <?= number_format($menu['hargaMenu'], 0, ',', '.') ?>
                     </p>
 
@@ -157,8 +174,8 @@
                          class="card-img-top menu-img">
                   </a>
                   <div class="card-body text-center p-4">
-                    <h5 class="fw-bold text-dark mb-2"><?= esc($menu['namaMenu']) ?></h5>
-                    <p class="text-danger fw-semibold fs-5 mb-4">
+                    <h5 class="fw-bold text-white mb-2" style="color: var(--text-primary) !important;"><?= esc($menu['namaMenu']) ?></h5>
+                    <p class="text-danger fw-semibold fs-5 mb-4" style="color: var(--primary-color) !important;">
                       Rp <?= number_format($menu['hargaMenu'], 0, ',', '.') ?>
                     </p>
 
@@ -218,8 +235,8 @@
                          class="card-img-top menu-img">
                   </a>
                   <div class="card-body text-center p-4">
-                    <h5 class="fw-bold text-dark mb-2"><?= esc($menu['namaMenu']) ?></h5>
-                    <p class="text-danger fw-semibold fs-5 mb-4">
+                    <h5 class="fw-bold text-dark mb-2" style="color: var(--text-primary) !important;"><?= esc($menu['namaMenu']) ?></h5>
+                    <p class="text-danger fw-semibold fs-5 mb-4" style="color: var(--primary-color) !important;">
                       Rp <?= number_format($menu['hargaMenu'], 0, ',', '.') ?>
                     </p>
 
@@ -254,7 +271,7 @@
 </section>
 
 <!-- ===========================
-     ⚡ Script AJAX Tambah Keranjang
+     ⚡ Script AJAX Tambah Keranjang - Ultra Responsive
      =========================== -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -264,46 +281,123 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const formData = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      // 🔥 IMMEDIATE VISUAL FEEDBACK - Instant response
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Menambah...';
+      submitBtn.disabled = true;
+      submitBtn.style.transform = 'scale(0.95)';
+      submitBtn.style.opacity = '0.8';
+
+      // 🔥 Animate cart icon immediately
+      animateCartIcon();
 
       try {
+        // 🔥 Faster fetch with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+
         const res = await fetch(form.action, {
           method: 'POST',
           body: formData,
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          signal: controller.signal
         });
 
+        clearTimeout(timeoutId);
         const data = await res.json();
 
         if (data.success) {
-          showToast('✅ Berhasil ditambahkan ke keranjang!');
-          updateCartCount(data.count); // 🔥 langsung update badge
+          // 🔥 Ultra-fast success feedback
+          showToast('✅ Ditambahkan!', false, 1500); // Shorter duration
+          updateCartCount(data.count, true); // Animated update
+
+          // 🔥 Success animation on button
+          submitBtn.innerHTML = '✅ Berhasil!';
+          submitBtn.style.backgroundColor = '#28a745';
+          submitBtn.style.transform = 'scale(1.05)';
+
+          // Reset button after success
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.transform = '';
+            submitBtn.style.opacity = '';
+            submitBtn.style.backgroundColor = '';
+          }, 800);
+
         } else {
-          showToast('⚠️ Gagal menambahkan ke keranjang.', true);
+          // 🔥 Fast error feedback
+          showToast('⚠️ Gagal menambah.', true, 2000);
+          resetButton(submitBtn, originalText);
         }
       } catch (err) {
         console.error(err);
-        showToast('❌ Terjadi kesalahan koneksi.', true);
+        if (err.name === 'AbortError') {
+          showToast('⏱️ Timeout - coba lagi.', true, 2000);
+        } else {
+          showToast('❌ Koneksi error.', true, 2000);
+        }
+        resetButton(submitBtn, originalText);
       }
     });
   });
 
-  // Fungsi notifikasi toast sederhana
-  function showToast(message, isError = false) {
+  // 🔥 Ultra-fast toast notification
+  function showToast(message, isError = false, duration = 2000) {
     const toast = document.createElement('div');
     toast.textContent = message;
     toast.className = `toast-message ${isError ? 'error' : 'success'}`;
     document.body.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 100);
+
+    // 🔥 Instant show (no delay)
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // 🔥 Shorter display time
     setTimeout(() => {
       toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, 2500);
+      setTimeout(() => toast.remove(), 200);
+    }, duration);
   }
 
-  // 🔥 Update angka badge keranjang di navbar
-  function updateCartCount(count) {
+  // 🔥 Animated cart count update
+  function updateCartCount(count, animate = false) {
     const badge = document.querySelector('.cart-count-ultra');
-    if (badge) badge.textContent = count;
+    if (badge) {
+      if (animate) {
+        // 🔥 Bounce animation for badge
+        badge.style.animation = 'none';
+        setTimeout(() => {
+          badge.style.animation = 'bounce 0.4s ease';
+        }, 10);
+      }
+      badge.textContent = count;
+    }
+  }
+
+  // 🔥 Animate cart icon in navbar
+  function animateCartIcon() {
+    const cartIcon = document.querySelector('.cart-icon-ultra');
+    if (cartIcon) {
+      cartIcon.style.animation = 'none';
+      setTimeout(() => {
+        cartIcon.style.animation = 'bounce 0.3s ease';
+        cartIcon.style.color = '#28a745'; // Green flash
+        setTimeout(() => {
+          cartIcon.style.color = ''; // Reset color
+        }, 300);
+      }, 10);
+    }
+  }
+
+  // 🔥 Reset button helper
+  function resetButton(button, originalText) {
+    button.innerHTML = originalText;
+    button.disabled = false;
+    button.style.transform = '';
+    button.style.opacity = '';
+    button.style.backgroundColor = '';
   }
 });
 </script>
@@ -316,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
   .menu-hero-section {
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
   }
 
   .menu-hero-section::before {
@@ -327,6 +422,43 @@ document.addEventListener('DOMContentLoaded', () => {
     bottom: 0;
     background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+
+  /* Floating Shapes like Home Page */
+  .floating-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .shape-1 {
+    width: 80px;
+    height: 80px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .shape-2 {
+    width: 60px;
+    height: 60px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+  }
+
+  .shape-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
 
   .menu-stats {
@@ -447,7 +579,35 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   body {
-    background-color: #fffaf9;
+    background-color: var(--light-bg);
+  }
+
+  /* Dark Mode Body */
+  [data-theme="dark"] body {
+    background-color: var(--light-bg);
+  }
+
+  /* Category Tabs - Dark Mode */
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link {
+    background: var(--card-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link:hover,
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link.active {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  /* Menu Cards - Dark Mode */
+  [data-theme="dark"] .menu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+  }
+
+  [data-theme="dark"] .menu-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 
   /* Toast Notification */
@@ -455,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: #28a745;
+    background: var(--success-color);
     color: #fff;
     padding: 12px 20px;
     border-radius: 30px;
@@ -466,11 +626,238 @@ document.addEventListener('DOMContentLoaded', () => {
     z-index: 9999;
   }
   .toast-message.error {
-    background: #dc3545;
+    background: var(--danger-color);
   }
   .toast-message.show {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Dark Mode Toast */
+  [data-theme="dark"] .toast-message {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+
+  /* Enhanced Dark Mode Styles for Menu Page */
+  [data-theme="dark"] .menu-hero-section {
+    background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-color) 50%, var(--primary-dark) 100%);
+  }
+
+  [data-theme="dark"] .hero-bg-pattern {
+    background-image: radial-gradient(circle at 20% 80%, rgba(231, 76, 60, 0.05) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(243, 156, 18, 0.05) 0%, transparent 50%);
+  }
+
+  [data-theme="dark"] .hero-content-wrapper h1 {
+    color: var(--text-primary) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  [data-theme="dark"] .hero-content-wrapper p {
+    color: var(--text-secondary) !important;
+  }
+
+  [data-theme="dark"] .menu-stats .stat-item {
+    background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.8)) !important;
+    border: 1px solid rgba(231, 76, 60, 0.2) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  [data-theme="dark"] .stat-item .stat-number {
+    color: var(--accent-color) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  [data-theme="dark"] .stat-item .stat-label {
+    color: var(--text-secondary) !important;
+  }
+
+  [data-theme="dark"] .image-glow {
+    background: linear-gradient(45deg, rgba(231, 76, 60, 0.1), rgba(243, 156, 18, 0.1)) !important;
+  }
+
+  [data-theme="dark"] .hero-menu-image img {
+    border-color: rgba(231, 76, 60, 0.3) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(231, 76, 60, 0.1);
+  }
+
+  [data-theme="dark"] .floating-decorations .badge {
+    background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9)) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid rgba(231, 76, 60, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  [data-theme="dark"] .menu-categories-section {
+    background: linear-gradient(135deg, var(--light-bg) 0%, rgba(25, 25, 25, 0.8) 100%);
+  }
+
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link {
+    background: linear-gradient(135deg, var(--card-bg), rgba(40, 40, 40, 0.9));
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link:hover,
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+  }
+
+  [data-theme="dark"] .menu-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(40, 40, 40, 0.9) 100%);
+    border: 1px solid rgba(231, 76, 60, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(231, 76, 60, 0.1);
+  }
+
+  [data-theme="dark"] .menu-card .card-title {
+    color: var(--text-primary) !important;
+  }
+
+  [data-theme="dark"] .menu-card .card-text {
+    color: var(--text-secondary) !important;
+  }
+
+  [data-theme="dark"] .menu-card .text-muted {
+    color: var(--text-secondary) !important;
+  }
+
+  [data-theme="dark"] .category-badge .badge {
+    background: linear-gradient(135deg, var(--success-color), rgba(39, 174, 96, 0.8)) !important;
+    box-shadow: 0 2px 6px rgba(39, 174, 96, 0.2);
+  }
+
+  [data-theme="dark"] .category-badge .badge.bg-info {
+    background: linear-gradient(135deg, var(--info-color), rgba(52, 152, 219, 0.8)) !important;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2);
+  }
+
+  [data-theme="dark"] .btn-outline-danger {
+    background: linear-gradient(135deg, transparent, rgba(231, 76, 60, 0.05));
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+    box-shadow: 0 2px 6px rgba(231, 76, 60, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .btn-outline-danger:hover {
+    background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+  }
+
+  [data-theme="dark"] .btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+    border: 2px solid var(--danger-color);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .btn-danger:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--danger-color));
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+  }
+
+  /* Text Shadow for Better Readability in Dark Mode */
+  [data-theme="dark"] .text-shadow-lg {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+  }
+
+
+
+  /* Improved Menu Card Image Effects in Dark Mode */
+  [data-theme="dark"] .menu-card:hover .menu-img {
+    transform: scale(1.08);
+    filter: brightness(1.1) contrast(1.1);
+  }
+
+  /* Better Category Tab Transitions */
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link {
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  [data-theme="dark"] .category-tabs .nav-pills .nav-link:hover::before {
+    left: 100%;
+  }
+
+  /* Enhanced Button Hover Effects in Dark Mode */
+  [data-theme="dark"] .btn-danger:hover,
+  [data-theme="dark"] .btn-outline-danger:hover {
+    filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.4));
+  }
+
+  /* Improved Badge Glow Effects */
+  [data-theme="dark"] .category-badge .badge {
+    position: relative;
+  }
+
+  [data-theme="dark"] .category-badge .badge::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: inherit;
+    border-radius: inherit;
+    filter: blur(4px);
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  /* Better Responsive Design for Dark Mode */
+  @media (max-width: 768px) {
+    [data-theme="dark"] .menu-hero-section {
+      padding: 3rem 0;
+    }
+
+    [data-theme="dark"] .hero-content-wrapper h1 {
+      font-size: 2.5rem;
+    }
+
+    [data-theme="dark"] .menu-stats {
+      padding: 1rem;
+    }
+
+    [data-theme="dark"] .floating-decorations {
+      display: none;
+    }
+  }
+
+  @media (max-width: 576px) {
+    [data-theme="dark"] .hero-content-wrapper h1 {
+      font-size: 2rem;
+    }
+
+    [data-theme="dark"] .stat-item .stat-number {
+      font-size: 2rem;
+    }
   }
 
   /* Responsive Design */

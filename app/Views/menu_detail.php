@@ -17,8 +17,8 @@
 ?>
 
 <!-- Hero Section with Background Image -->
-<section class="menu-detail-hero position-relative" style="background-image: linear-gradient(135deg, rgba(231, 76, 60, 0.9) 0%, rgba(220, 53, 69, 0.9) 100%), url('<?= $gambarPath ?>'); background-size: cover; background-position: center; min-height: 60vh;">
-  <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);"></div>
+<section class="menu-detail-hero position-relative" style="background-image: linear-gradient(135deg, rgba(231, 76, 60, 0.9) 0%, rgba(220, 53, 69, 0.85) 25%, rgba(192, 57, 43, 0.95) 50%, rgba(155, 89, 182, 0.8) 75%, rgba(231, 76, 60, 0.9) 100%), url('<?= $gambarPath ?>'); background-size: cover; background-position: center; min-height: 70vh; box-shadow: inset 0 0 150px rgba(231, 76, 60, 0.3), 0 0 50px rgba(231, 76, 60, 0.1);">
+  <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(231, 76, 60, 0.1) 100%);"></div>
 
   <div class="container position-relative h-100 d-flex align-items-center">
     <div class="row w-100 align-items-center">
@@ -35,29 +35,19 @@
           <!-- Menu Name -->
           <h1 class="display-4 fw-bold mb-3 text-shadow-lg"><?= esc($menu['namaMenu']) ?></h1>
 
-          <!-- Rating Stars -->
-          <div class="rating-stars mb-3">
-            <div class="d-flex align-items-center">
-              <?php for($i = 1; $i <= 5; $i++): ?>
-                <i class="bi bi-star-fill text-warning me-1"></i>
-              <?php endfor; ?>
-              <span class="ms-2 text-light">(4.8/5.0)</span>
-            </div>
-          </div>
+
 
           <!-- Price -->
           <div class="price-hero mb-4">
             <span class="h2 fw-bold text-white">Rp <?= number_format($menu['hargaMenu'], 0, ',', '.') ?></span>
           </div>
 
-          <!-- Quick Actions -->
-          <div class="hero-actions d-flex gap-3 flex-wrap">
-            <button class="btn btn-light btn-lg rounded-pill px-4 py-3 fw-semibold shadow-lg" onclick="scrollToDetails()">
-              <i class="bi bi-info-circle me-2"></i>Lihat Detail
-            </button>
-            <button class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-semibold" onclick="addToWishlist()">
-              <i class="bi bi-heart me-2"></i>Simpan
-            </button>
+          <!-- Hero Description -->
+          <div class="hero-description mb-4">
+            <p class="lead text-white-50 mb-0" style="font-size: 1.1rem; line-height: 1.6;">
+              Nikmati cita rasa autentik dari warung makan Yokuwi yang telah diwariskan turun-temurun.
+              Dibuat dengan bahan-bahan pilihan dan resep rahasia yang tak tergantikan.
+            </p>
           </div>
         </div>
       </div>
@@ -72,18 +62,15 @@
     </div>
   </div>
 
-  <!-- Floating Elements -->
-  <div class="floating-elements">
-    <div class="floating-badge position-absolute" style="top: 20%; right: 10%; animation: float 3s ease-in-out infinite;">
-      <div class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-semibold">
-        <i class="bi bi-fire me-1"></i>Terlaris
-      </div>
-    </div>
-    <div class="floating-badge position-absolute" style="bottom: 25%; left: 5%; animation: float 4s ease-in-out infinite;">
-      <div class="badge bg-success rounded-pill px-3 py-2 fw-semibold">
-        <i class="bi bi-check-circle me-1"></i>Halal
-      </div>
-    </div>
+
+
+  <!-- Particle Effects -->
+  <div class="particles">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
   </div>
 </section>
 
@@ -130,8 +117,8 @@
 
             <!-- Nutritional Info -->
             <div class="nutrition-section mb-5">
-              <h3 class="h4 fw-bold text-dark mb-4">
-                <i class="bi bi-graph-up text-danger me-2"></i>Informasi Gizi
+            <h3 class="h4 fw-bold text-dark mb-4" style="color: var(--text-primary) !important;">
+                <i class="bi bi-graph-up text-danger me-2" style="color: var(--primary-color) !important;"></i>Informasi Gizi
               </h3>
               <div class="nutrition-grid">
                 <div class="row g-3">
@@ -163,35 +150,7 @@
               </div>
             </div>
 
-            <!-- Preparation Info -->
-            <div class="preparation-section">
-              <h3 class="h4 fw-bold text-dark mb-4">
-                <i class="bi bi-clock text-danger me-2"></i>Informasi Penyajian
-              </h3>
-              <div class="row g-4">
-                <div class="col-md-4">
-                  <div class="prep-item text-center p-4 bg-white rounded-4 shadow-sm">
-                    <i class="bi bi-clock-history text-primary fs-1 mb-3"></i>
-                    <div class="fw-bold fs-5 text-dark">15-20</div>
-                    <div class="text-muted">Menit</div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="prep-item text-center p-4 bg-white rounded-4 shadow-sm">
-                    <i class="bi bi-people text-success fs-1 mb-3"></i>
-                    <div class="fw-bold fs-5 text-dark">1-2</div>
-                    <div class="text-muted">Porsi</div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="prep-item text-center p-4 bg-white rounded-4 shadow-sm">
-                    <i class="bi bi-thermometer-half text-warning fs-1 mb-3"></i>
-                    <div class="fw-bold fs-5 text-dark">Panas</div>
-                    <div class="text-muted">Sajian</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -266,20 +225,6 @@
 
             <!-- Additional Info -->
             <div class="additional-info mt-4 pt-4 border-top">
-              <div class="info-item d-flex align-items-center mb-3">
-                <i class="bi bi-truck text-success me-3 fs-5"></i>
-                <div>
-                  <div class="fw-semibold small">Gratis Ongkir</div>
-                  <div class="text-muted small">Minimal pesanan Rp 50.000</div>
-                </div>
-              </div>
-              <div class="info-item d-flex align-items-center mb-3">
-                <i class="bi bi-shield-check text-primary me-3 fs-5"></i>
-                <div>
-                  <div class="fw-semibold small">Pembayaran Aman</div>
-                  <div class="text-muted small">QRIS, Transfer, COD</div>
-                </div>
-              </div>
               <div class="info-item d-flex align-items-center">
                 <i class="bi bi-clock text-warning me-3 fs-5"></i>
                 <div>
@@ -290,72 +235,12 @@
             </div>
           </div>
         </div>
-
-        <!-- Share Section -->
-        <div class="share-card card border-0 shadow-lg rounded-4 overflow-hidden mt-4">
-          <div class="card-body p-4 text-center">
-            <h5 class="fw-bold text-dark mb-3">
-              <i class="bi bi-share text-danger me-2"></i>Bagikan Menu
-            </h5>
-            <div class="share-buttons d-flex justify-content-center gap-2">
-              <button class="btn btn-outline-primary rounded-circle share-btn" onclick="shareOnFacebook()">
-                <i class="bi bi-facebook"></i>
-              </button>
-              <button class="btn btn-outline-info rounded-circle share-btn" onclick="shareOnTwitter()">
-                <i class="bi bi-twitter"></i>
-              </button>
-              <button class="btn btn-outline-success rounded-circle share-btn" onclick="shareOnWhatsApp()">
-                <i class="bi bi-whatsapp"></i>
-              </button>
-              <button class="btn btn-outline-secondary rounded-circle share-btn" onclick="copyLink()">
-                <i class="bi bi-link-45deg"></i>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Related Items Section -->
-<section class="related-items-section py-5 bg-white">
-  <div class="container">
-    <div class="section-header text-center mb-5">
-      <h2 class="h3 fw-bold text-dark mb-3">
-        <i class="bi bi-star text-warning me-2"></i>Menu Lainnya yang Mungkin Anda Suka
-      </h2>
-      <p class="text-muted">Temukan hidangan lezat lainnya dari koleksi kami</p>
-    </div>
 
-    <div class="related-items-carousel">
-      <div class="row g-4">
-        <!-- Sample related items - in real app, this would be dynamic -->
-        <?php for($i = 1; $i <= 4; $i++): ?>
-          <div class="col-md-6 col-lg-3">
-            <div class="related-item-card card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
-              <div class="position-relative">
-                <img src="<?= base_url('images/nasi_ayam_gepuk.png') ?>" class="card-img-top" alt="Related Menu" style="height: 200px; object-fit: cover;">
-                <div class="category-badge position-absolute top-0 end-0 m-2">
-                  <span class="badge bg-success rounded-pill">
-                    <i class="bi bi-egg-fried me-1"></i>Makanan
-                  </span>
-                </div>
-              </div>
-              <div class="card-body p-3">
-                <h6 class="card-title fw-bold text-dark mb-2">Nasi Ayam Gepuk</h6>
-                <p class="card-text text-danger fw-semibold mb-2">Rp 25.000</p>
-                <button class="btn btn-outline-danger btn-sm rounded-pill w-100">
-                  <i class="bi bi-eye me-1"></i>Lihat Detail
-                </button>
-              </div>
-            </div>
-          </div>
-        <?php endfor; ?>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Back to Menu Link -->
 <div class="container py-4">
@@ -431,6 +316,99 @@
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
+}
+
+/* Particle Effects */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(231, 76, 60, 0.3);
+  border-radius: 50%;
+  animation: particle-float 8s ease-in-out infinite;
+}
+
+.particle-1 {
+  width: 8px;
+  height: 8px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  width: 6px;
+  height: 6px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+}
+
+.particle-3 {
+  width: 10px;
+  height: 10px;
+  top: 40%;
+  left: 60%;
+  animation-delay: 4s;
+}
+
+.particle-4 {
+  width: 5px;
+  height: 5px;
+  top: 80%;
+  left: 30%;
+  animation-delay: 6s;
+}
+
+.particle-5 {
+  width: 7px;
+  height: 7px;
+  top: 10%;
+  left: 70%;
+  animation-delay: 1s;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-10px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-20px) translateX(5px);
+    opacity: 0.5;
+  }
+}
+
+/* Hero Description */
+.hero-description {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Menu Details */
@@ -629,6 +607,426 @@
 
 .toast-notification.error {
   background: #dc3545;
+}
+
+/* Enhanced Dark Mode Styles for Menu Detail Page */
+[data-theme="dark"] .menu-detail-hero {
+  background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(35, 35, 35, 0.95) 50%, rgba(20, 20, 20, 0.95) 100%);
+  box-shadow: inset 0 0 100px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .hero-overlay {
+  background: linear-gradient(45deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%);
+}
+
+[data-theme="dark"] .hero-floating-image {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.8)) !important;
+  border: 2px solid rgba(231, 76, 60, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(231, 76, 60, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .hero-floating-image:hover {
+  transform: rotate(-3deg) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(231, 76, 60, 0.2);
+}
+
+[data-theme="dark"] .floating-badge .badge {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9)) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(231, 76, 60, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .menu-details-section {
+  background: linear-gradient(135deg, var(--light-bg) 0%, rgba(25, 25, 25, 0.8) 100%);
+}
+
+[data-theme="dark"] .menu-content-card {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(40, 40, 40, 0.9) 100%);
+  border: 1px solid rgba(231, 76, 60, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(231, 76, 60, 0.05);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .menu-content-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(231, 76, 60, 0.1);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .menu-content-card .card-body h3,
+[data-theme="dark"] .menu-content-card .card-body h4 {
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .menu-content-card .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .ingredients-section .ingredient-item {
+  background: linear-gradient(135deg, var(--hover-bg), rgba(50, 50, 50, 0.8));
+  border-left: 4px solid var(--primary-color);
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .ingredients-section .ingredient-item:hover {
+  transform: translateX(8px) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.15);
+  border-left-color: var(--accent-color);
+}
+
+[data-theme="dark"] .ingredients-section .ingredient-item .text-success {
+  color: var(--success-color) !important;
+  filter: drop-shadow(0 0 4px rgba(39, 174, 96, 0.3));
+}
+
+[data-theme="dark"] .nutrition-item {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9));
+  color: var(--text-primary);
+  border: 1px solid rgba(231, 76, 60, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .nutrition-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .nutrition-item .nutrition-label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .prep-item {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9));
+  color: var(--text-primary);
+  border: 1px solid rgba(231, 76, 60, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .prep-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .prep-item .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .prep-item .text-primary {
+  color: var(--primary-color) !important;
+  filter: drop-shadow(0 0 4px rgba(231, 76, 60, 0.3));
+}
+
+[data-theme="dark"] .prep-item .text-success {
+  color: var(--success-color) !important;
+  filter: drop-shadow(0 0 4px rgba(39, 174, 96, 0.3));
+}
+
+[data-theme="dark"] .prep-item .text-warning {
+  color: var(--warning-color) !important;
+  filter: drop-shadow(0 0 4px rgba(243, 156, 18, 0.3));
+}
+
+[data-theme="dark"] .order-card {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(40, 40, 40, 0.9) 100%);
+  border: 1px solid rgba(231, 76, 60, 0.2);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(231, 76, 60, 0.08);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .order-card:hover {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 35px rgba(231, 76, 60, 0.12);
+  transform: translateY(-3px);
+}
+
+[data-theme="dark"] .order-card .card-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+[data-theme="dark"] .order-card .card-body h4,
+[data-theme="dark"] .order-card .card-body label,
+[data-theme="dark"] .order-card .card-body .text-muted {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .order-card .text-danger {
+  color: var(--danger-color) !important;
+  filter: drop-shadow(0 0 4px rgba(231, 76, 60, 0.3));
+}
+
+[data-theme="dark"] .order-card .text-success {
+  color: var(--success-color) !important;
+  filter: drop-shadow(0 0 4px rgba(39, 174, 96, 0.3));
+}
+
+[data-theme="dark"] .price-display {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(243, 156, 18, 0.1));
+  border: 1px solid rgba(231, 76, 60, 0.2);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .quantity-controls {
+  background: linear-gradient(135deg, var(--input-bg), rgba(35, 35, 35, 0.8));
+  border: 1px solid var(--input-border);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .quantity-btn {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9));
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .quantity-btn:hover {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+[data-theme="dark"] .quantity-input {
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .total-price {
+  background: linear-gradient(135deg, var(--hover-bg), rgba(40, 40, 40, 0.9));
+  border: 1px solid rgba(231, 76, 60, 0.25);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .total-price .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .action-buttons .btn-outline-danger {
+  background: linear-gradient(135deg, transparent, rgba(231, 76, 60, 0.05));
+  border: 2px solid var(--danger-color);
+  color: var(--danger-color);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .action-buttons .btn-outline-danger:hover {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+}
+
+[data-theme="dark"] .action-buttons .btn-danger {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  border: 2px solid var(--danger-color);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .action-buttons .btn-danger:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--danger-color));
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+[data-theme="dark"] .additional-info .info-item {
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--hover-bg), rgba(45, 45, 45, 0.8));
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .additional-info .info-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .additional-info .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .additional-info .text-success {
+  color: var(--success-color) !important;
+  filter: drop-shadow(0 0 4px rgba(39, 174, 96, 0.3));
+}
+
+[data-theme="dark"] .additional-info .text-primary {
+  color: var(--primary-color) !important;
+  filter: drop-shadow(0 0 4px rgba(231, 76, 60, 0.3));
+}
+
+[data-theme="dark"] .additional-info .text-warning {
+  color: var(--warning-color) !important;
+  filter: drop-shadow(0 0 4px rgba(243, 156, 18, 0.3));
+}
+
+[data-theme="dark"] .share-card {
+  background: linear-gradient(135deg, var(--card-bg), rgba(40, 40, 40, 0.9));
+  border: 1px solid rgba(231, 76, 60, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .share-card h5 {
+  color: var(--text-primary) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-primary {
+  background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-primary:hover {
+  background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-info {
+  background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
+  border: 2px solid var(--info-color);
+  color: var(--info-color);
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-info:hover {
+  background: linear-gradient(135deg, var(--info-color), var(--primary-color));
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-success {
+  background: linear-gradient(135deg, transparent, rgba(39, 174, 96, 0.05));
+  border: 2px solid var(--success-color);
+  color: var(--success-color);
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-success:hover {
+  background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(39, 174, 96, 0.3);
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-secondary {
+  background: linear-gradient(135deg, transparent, rgba(108, 117, 125, 0.05));
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(108, 117, 125, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .share-buttons .btn-outline-secondary:hover {
+  background: linear-gradient(135deg, var(--border-color), rgba(108, 117, 125, 0.8));
+  color: var(--text-primary);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(108, 117, 125, 0.3);
+}
+
+[data-theme="dark"] .related-items-section {
+  background: linear-gradient(135deg, var(--light-bg) 0%, rgba(25, 25, 25, 0.9) 100%);
+}
+
+[data-theme="dark"] .related-items-section h2 {
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .related-items-section .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .related-item-card {
+  background: linear-gradient(135deg, var(--card-bg), rgba(40, 40, 40, 0.9));
+  border: 1px solid rgba(231, 76, 60, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .related-item-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .related-item-card .card-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .related-item-card .card-text {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .related-item-card .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .related-item-card .badge {
+  background: linear-gradient(135deg, var(--success-color), rgba(39, 174, 96, 0.8)) !important;
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.2);
+}
+
+[data-theme="dark"] .related-item-card .btn-outline-danger {
+  background: linear-gradient(135deg, transparent, rgba(231, 76, 60, 0.05));
+  border: 2px solid var(--danger-color);
+  color: var(--danger-color);
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .related-item-card .btn-outline-danger:hover {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+[data-theme="dark"] .btn-outline-danger {
+  background: linear-gradient(135deg, transparent, rgba(231, 76, 60, 0.05));
+  border: 2px solid var(--danger-color);
+  color: var(--danger-color);
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .btn-outline-danger:hover {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Dark Mode Toast */
+[data-theme="dark"] .toast-notification {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .toast-notification.error {
+  background: var(--danger-bg);
+  color: var(--danger-color);
 }
 
 /* Responsive */

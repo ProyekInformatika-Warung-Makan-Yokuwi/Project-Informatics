@@ -9,9 +9,15 @@ $total = $total ?? 0;
 ?>
 
 <!-- Hero Section Checkout -->
-<section class="checkout-hero-section py-5" style="background: linear-gradient(135deg, #c82333 0%, #dc3545 50%, #e74c3c 100%);">
-  <div class="container">
-    <div class="row align-items-center">
+<section class="checkout-hero-section position-relative overflow-hidden">
+  <div class="checkout-bg-gradient"></div>
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="container position-relative">
+    <div class="row align-items-center min-vh-75">
       <div class="col-lg-6 text-center text-lg-start">
         <h1 class="display-4 fw-bold text-white mb-4 animate__animated animate__fadeIn">💳 Checkout</h1>
         <p class="lead text-light mb-4 animate__animated animate__fadeIn animate__delay-1s">
@@ -40,9 +46,10 @@ $total = $total ?? 0;
           </div>
         <?php endif; ?>
       </div>
-      <div class="col-lg-6 text-center mt-4 mt-lg-0">
-        <div class="hero-checkout-image animate__animated animate__fadeIn animate__delay-3s">
-          <img src="<?= base_url('images/gambar_tambahan_checkout.png') ?>" alt="Checkout Yokuwi" class="img-fluid rounded-4 shadow-lg">
+      <div class="col-lg-6 text-center mt-5 mt-lg-0">
+        <div class="hero-checkout-image-container animate__animated animate__fadeIn animate__delay-3s">
+          <img src="<?= base_url('images/gambar_tambahan_checkout.png') ?>" alt="Checkout Yokuwi" class="img-fluid hero-checkout-image">
+          <div class="image-glow"></div>
         </div>
       </div>
     </div>
@@ -50,7 +57,7 @@ $total = $total ?? 0;
 </section>
 
 <!-- Checkout Items Section -->
-<section class="checkout-items-section py-5" style="background: #fff5f5;">
+<section class="checkout-items-section py-5">
   <div class="container">
     <?php if (!empty($items)): ?>
 
@@ -95,8 +102,8 @@ $total = $total ?? 0;
                 <div class="col-auto">
                   <div class="quantity-display">
                     <div class="text-center">
-                      <div class="quantity-number fw-bold fs-5 text-primary">x<?= (int)$qty ?></div>
-                      <div class="quantity-label text-muted small">Qty</div>
+                      <div class="quantity-number fw-bold fs-5 text-primary" style="color: var(--info-color) !important;">x<?= (int)$qty ?></div>
+                      <div class="quantity-label text-muted small" style="color: var(--text-secondary) !important;">Qty</div>
                     </div>
                   </div>
                 </div>
@@ -104,7 +111,7 @@ $total = $total ?? 0;
                 <!-- Subtotal -->
                 <div class="col-auto">
                   <div class="checkout-item-subtotal">
-                    <p class="fw-bold text-danger mb-0 fs-5">Rp <span class="subtotal"><?= number_format($subtotal, 0, ',', '.') ?></span></p>
+                    <p class="fw-bold text-danger mb-0 fs-5" style="color: var(--primary-color) !important;">Rp <span class="subtotal"><?= number_format($subtotal, 0, ',', '.') ?></span></p>
                   </div>
                 </div>
 
@@ -142,7 +149,7 @@ $total = $total ?? 0;
               <div class="col-md-6 text-end">
                 <div class="checkout-total">
                   <p class="text-muted mb-1">Total Pembayaran</p>
-                  <h3 class="text-danger fw-bold mb-0" id="checkout-total">
+                  <h3 class="text-danger fw-bold mb-0" id="checkout-total" style="color: var(--primary-color) !important;">
                     Rp <?= number_format((float)$total, 0, ',', '.') ?>
                   </h3>
                 </div>
@@ -183,11 +190,18 @@ $total = $total ?? 0;
 <style>
 /* Checkout Hero Section */
 .checkout-hero-section {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
   position: relative;
   overflow: hidden;
+  padding: 5rem 0;
 }
 
-.checkout-hero-section::before {
+/* Dark Mode Checkout Hero Section */
+[data-theme="dark"] .checkout-hero-section {
+  background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-color) 50%, var(--primary-dark) 100%);
+}
+
+.checkout-bg-gradient::before {
   content: '';
   position: absolute;
   top: 0;
@@ -196,6 +210,66 @@ $total = $total ?? 0;
   bottom: 0;
   background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
               radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.floating-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 60px;
+  height: 60px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.hero-checkout-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-checkout-image {
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 100%;
+}
+
+.image-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,215,0,0.2));
+  border-radius: 30px;
+  z-index: -1;
+  filter: blur(20px);
 }
 
 .checkout-stats {
@@ -236,6 +310,29 @@ $total = $total ?? 0;
 .checkout-item-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(220, 53, 69, 0.15);
+}
+
+/* Dark Mode Checkout Item Cards */
+[data-theme="dark"] .checkout-item-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .checkout-item-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .checkout-item-title {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .checkout-item-price {
+  color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .quantity-label {
+  color: var(--text-secondary) !important;
 }
 
 .checkout-item-image {
@@ -312,6 +409,26 @@ $total = $total ?? 0;
   background: linear-gradient(135deg, #fff5f5, #fef2f2);
   border-radius: 12px;
   border: 2px solid rgba(220, 53, 69, 0.1);
+}
+
+/* Dark Mode Checkout Summary */
+[data-theme="dark"] .checkout-summary-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .summary-stats {
+  background: linear-gradient(135deg, var(--hover-bg), rgba(45, 45, 45, 0.8));
+}
+
+[data-theme="dark"] .checkout-total {
+  background: linear-gradient(135deg, var(--hover-bg), rgba(40, 40, 40, 0.9));
+  border-color: rgba(231, 76, 60, 0.2);
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-secondary) !important;
 }
 
 .btn-xl {

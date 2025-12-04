@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <!-- Hero Section Cart -->
-<section class="cart-hero-section py-5" style="background: linear-gradient(135deg, #c82333 0%, #dc3545 50%, #e74c3c 100%);">
+<section class="cart-hero-section py-5">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 text-center text-lg-start">
@@ -44,7 +44,7 @@
 </section>
 
 <!-- Cart Items Section -->
-<section class="cart-items-section py-5" style="background: #fff5f5;">
+<section class="cart-items-section py-5">
   <div class="container">
     <?php if (!empty($cart)): ?>
       <form action="<?= site_url('cart/checkout') ?>" method="post" id="cartForm">
@@ -59,6 +59,7 @@
                   <div class="col-auto">
                     <div class="form-check">
                       <input type="checkbox" name="selected[]" value="<?= $item['id'] ?>" class="form-check-input cart-checkbox" id="item-<?= $item['id'] ?>">
+                      <input type="hidden" name="qty[<?= $item['id'] ?>]" value="<?= $item['qty'] ?>" id="qty-hidden-<?= $item['id'] ?>">
                       <label class="form-check-label" for="item-<?= $item['id'] ?>"></label>
                     </div>
                   </div>
@@ -73,8 +74,8 @@
                   <!-- Item Details -->
                   <div class="col">
                     <div class="cart-item-details">
-                      <h5 class="cart-item-title fw-bold text-dark mb-1"><?= esc($item['nama']) ?></h5>
-                      <p class="cart-item-price text-danger fw-semibold mb-2">Rp <span class="harga"><?= number_format($item['harga'], 0, ',', '.') ?></span></p>
+                      <h5 class="cart-item-title fw-bold text-dark mb-1" style="color: var(--text-primary) !important;"><?= esc($item['nama']) ?></h5>
+                      <p class="cart-item-price text-danger fw-semibold mb-2" style="color: var(--primary-color) !important;">Rp <span class="harga"><?= number_format($item['harga'], 0, ',', '.') ?></span></p>
                       <div class="cart-item-category">
                         <span class="badge bg-success rounded-pill">
                           <i class="bi bi-check-circle me-1"></i>Makanan
@@ -194,6 +195,7 @@
 .cart-hero-section {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
 }
 
 .cart-hero-section::before {
@@ -413,6 +415,186 @@
     font-size: 1rem;
   }
 }
+
+/* Dark Mode Styles for Cart Page */
+[data-theme="dark"] .cart-hero-section {
+  background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary-color) 50%, var(--primary-dark) 100%);
+}
+
+[data-theme="dark"] .cart-hero-section::before {
+  background: radial-gradient(circle at 20% 80%, rgba(231, 76, 60, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(243, 156, 18, 0.05) 0%, transparent 50%);
+}
+
+[data-theme="dark"] .cart-stats {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.8)) !important;
+  border: 1px solid rgba(231, 76, 60, 0.2) !important;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .stat-item .stat-number {
+  color: var(--accent-color) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .stat-item .stat-label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .hero-cart-image img {
+  border-color: rgba(231, 76, 60, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(231, 76, 60, 0.1);
+}
+
+[data-theme="dark"] .cart-items-section {
+  background: linear-gradient(135deg, var(--light-bg) 0%, rgba(25, 25, 25, 0.8) 100%);
+}
+
+[data-theme="dark"] .cart-item-card {
+  background: var(--card-bg) !important;
+  border: 1px solid rgba(231, 76, 60, 0.15) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .cart-item-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(231, 76, 60, 0.1) !important;
+}
+
+[data-theme="dark"] .cart-item-image {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .quantity-controls .qty-input {
+  background: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cart-summary-card {
+  background: var(--card-bg) !important;
+  border: 1px solid rgba(231, 76, 60, 0.15) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .summary-stats {
+  background: linear-gradient(135deg, var(--card-bg), rgba(40, 40, 40, 0.9)) !important;
+  border: 1px solid rgba(231, 76, 60, 0.1) !important;
+}
+
+[data-theme="dark"] .cart-total {
+  background: linear-gradient(135deg, var(--card-bg), rgba(45, 45, 45, 0.9)) !important;
+  border: 2px solid rgba(231, 76, 60, 0.2) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .empty-cart h3,
+[data-theme="dark"] .empty-cart p {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .empty-cart-icon {
+  color: var(--text-muted) !important;
+  opacity: 0.3;
+}
+
+/* Enhanced Dark Mode Button Styles */
+[data-theme="dark"] .btn-outline-danger {
+  background: linear-gradient(135deg, transparent, rgba(231, 76, 60, 0.05));
+  border: 2px solid var(--danger-color);
+  color: var(--danger-color);
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .btn-outline-danger:hover {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+[data-theme="dark"] .btn-danger {
+  background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+  border: 2px solid var(--danger-color);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .btn-danger:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--danger-color));
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Dark Mode Form Elements */
+[data-theme="dark"] .form-check-input {
+  background: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+}
+
+[data-theme="dark"] .form-check-input:checked {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Dark Mode Badge Styles */
+[data-theme="dark"] .badge {
+  background: linear-gradient(135deg, var(--success-color), rgba(39, 174, 96, 0.8)) !important;
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.2);
+}
+
+/* Enhanced Dark Mode Hover Effects */
+[data-theme="dark"] .cart-item-card:hover .cart-item-image {
+  transform: scale(1.05);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+[data-theme="dark"] .btn-danger:hover,
+[data-theme="dark"] .btn-outline-danger:hover {
+  filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.4));
+}
+
+/* Better Dark Mode Text Readability */
+[data-theme="dark"] .cart-item-title {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .cart-item-price {
+  color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .cart-total h3 {
+  color: var(--primary-color) !important;
+}
+
+/* Dark Mode Responsive Adjustments */
+@media (max-width: 768px) {
+  [data-theme="dark"] .cart-hero-section {
+    padding: 3rem 0;
+  }
+
+  [data-theme="dark"] .cart-stats {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  [data-theme="dark"] .display-4 {
+    font-size: 2rem;
+  }
+
+  [data-theme="dark"] .cart-item-title {
+    font-size: 1rem;
+  }
+
+  [data-theme="dark"] .cart-item-price {
+    font-size: 1rem;
+  }
+}
 </style>
 
 <!-- Scripts -->
@@ -478,6 +660,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       qtyInput.value = qty;
+      // Update hidden input for form submission
+      const hiddenQty = card.querySelector(`#qty-hidden-${itemId}`);
+      if (hiddenQty) {
+        hiddenQty.value = qty;
+      }
       const subtotal = harga * qty;
       card.querySelector('.subtotal').textContent = formatRupiah(subtotal);
 
