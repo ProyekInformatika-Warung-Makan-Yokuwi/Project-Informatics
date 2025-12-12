@@ -55,8 +55,6 @@ $routes->get('/order/success', 'Order::success');
 // ✅ download nota PDF
 $routes->get('/order/downloadNota/(:num)', 'Order::downloadNota/$1');
 
-
-
 // =========================
 // Kelola Menu
 // =========================
@@ -91,5 +89,3 @@ $routes->get('admin/hapus-akun/(:num)', 'Admin::hapusAkun/$1');
 $routes->get('/admin/notifications', 'Admin::getNotifications');
 $routes->post('/admin/notifications/mark-read/(:num)', 'Admin::markNotificationRead/$1');
 $routes->post('/admin/notifications/mark-all-read', 'Admin::markAllRead');
-
-

@@ -285,6 +285,11 @@
   margin: 0;
 }
 
+/* Dark Mode Menu Name */
+[data-theme="dark"] .kelola-menu-name {
+  color: black;
+}
+
 /* Enhanced Price Display */
 .kelola-menu-price {
   font-family: var(--font-secondary);

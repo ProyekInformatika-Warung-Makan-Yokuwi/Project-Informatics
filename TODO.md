@@ -1,25 +1,22 @@
-# TODO: Sempurnakan Dark Mode dan Light Mode di Halaman Kelola Menu
+# TODO: Tambahkan Tombol Riwayat Pemesanan
 
-## Tugas Utama
-- [x] Update `app/Views/kelola_menu.php` dengan styling modern dan kompatibilitas tema penuh
-- [x] Tambahkan CSS kustom untuk daya tarik visual yang ditingkatkan
-- [x] Pastikan semua elemen (tabel, tombol, alert) beradaptasi dengan baik ke kedua tema
-- [x] Tambahkan animasi dan transisi halus untuk pengalaman pengguna yang lebih baik
+## Status: In Progress
 
-## Langkah-langkah Implementasi
-- [x] Analisis struktur halaman kelola menu saat ini
-- [x] Ganti kelas Bootstrap standar dengan kelas tema-aware
-- [x] Tambahkan gradien, bayangan, dan efek hover modern
-- [x] Implementasikan animasi untuk interaksi pengguna
-- [x] Pastikan responsivitas di berbagai ukuran layar
-- [x] Uji halaman di mode terang dan gelap
-- [x] Verifikasi semua elemen interaktif berfungsi dengan baik di kedua tema
+### 1. Tambahkan Route untuk Riwayat Pemesanan
+- [ ] Tambahkan route di `app/Config/Routes.php` untuk halaman riwayat pemesanan
 
-## File yang Akan Diedit
-- `app/Views/kelola_menu.php`: File utama untuk update styling dan kompatibilitas tema
+### 2. Tambahkan Method di Controller Admin
+- [ ] Tambahkan method `riwayatPemesanan()` di `app/Controllers/Admin.php` untuk menampilkan halaman riwayat pemesanan
 
-## Status
-- [x] Analisis file selesai
-- [x] Rencana disetujui pengguna
-- [x] Implementasi selesai - halaman kelola menu telah diperbaharui dengan styling modern dan kompatibilitas tema penuh
-- [x] Testing selesai - server berjalan di http://localhost:8080 untuk testing manual
+### 3. Buat View Riwayat Pemesanan
+- [ ] Buat view `app/Views/riwayat_pemesanan.php` dengan tabel data pesanan dari database
+- [ ] Pastikan view mendukung dark mode
+
+### 4. Tambahkan Tombol di Dropdown Akun
+- [ ] Tambahkan tombol "Riwayat Pemesanan" di dropdown akun di `app/Views/layouts/layout_modern.php`
+- [ ] Pastikan tombol hanya muncul untuk role 'pemilik'
+
+### 5. Testing dan Verifikasi
+- [ ] Test akses halaman riwayat pemesanan
+- [ ] Verifikasi dark mode berfungsi dengan baik
+- [ ] Pastikan data pesanan ditampilkan dengan benar

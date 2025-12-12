@@ -44,7 +44,7 @@ class Cart extends BaseController
         if ($this->request->isAJAX()) {
             return $this->response->setJSON([
                 'success' => true,
-                'count' => count($cart)
+                'count' => array_sum(array_column($cart, 'qty'))
             ]);
         }
 
