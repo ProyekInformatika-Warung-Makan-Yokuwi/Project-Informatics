@@ -28,7 +28,7 @@
           <div class="menu-stats animate__animated animate__fadeIn animate__delay-2s">
             <div class="d-flex justify-content-center justify-content-lg-start gap-4 flex-wrap">
               <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">50+</div>
+                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">15+</div>
                 <div class="stat-label text-light small fw-semibold">Variasi Menu</div>
               </div>
               <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
@@ -36,8 +36,8 @@
                 <div class="stat-label text-light small fw-semibold">Bahan Segar</div>
               </div>
               <div class="stat-item text-center p-3 rounded-4" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">24/7</div>
-                <div class="stat-label text-light small fw-semibold">Tersedia</div>
+                <div class="stat-number text-warning fw-bold fs-3 mb-1" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">100%</div>
+                <div class="stat-label text-light small fw-semibold">Halal</div>
               </div>
             </div>
           </div>

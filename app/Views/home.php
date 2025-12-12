@@ -275,15 +275,15 @@
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
             </div>
-            <p class="testimonial-text">"Makanan di Yokuwi sangat enak dan harganya terjangkau. Pelayanannya juga ramah sekali!"</p>
+            <p class="testimonial-text">"Sangat pantas dapat nilai 100..."</p>
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <i class="bi bi-person-circle"></i>
             </div>
             <div class="author-info">
-              <h6>Sari Dewi</h6>
-              <span class="text-muted">Mahasiswa</span>
+              <h6>Ibu Polin</h6>
+              <span class="text-muted">Dosen</span>
             </div>
           </div>
         </div>
@@ -299,15 +299,15 @@
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
             </div>
-            <p class="testimonial-text">"Ayam gepuknya juara! Rasanya autentik seperti masakan rumah. Bakal sering kesini lagi."</p>
+            <p class="testimonial-text">"Sangat setujuu bu..."</p>
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <i class="bi bi-person-circle"></i>
             </div>
             <div class="author-info">
-              <h6>Budi Santoso</h6>
-              <span class="text-muted">Karyawan Swasta</span>
+              <h6>Asdos Cewek</h6>
+              <span class="text-muted">Mahasiswa</span>
             </div>
           </div>
         </div>
@@ -323,15 +323,15 @@
               <i class="bi bi-star-fill text-warning"></i>
               <i class="bi bi-star-fill text-warning"></i>
             </div>
-            <p class="testimonial-text">"Tempatnya bersih dan nyaman. Cocok untuk makan keluarga. Anak-anak juga suka!"</p>
+            <p class="testimonial-text">"Manut..."</p>
           </div>
           <div class="testimonial-author">
             <div class="author-avatar">
               <i class="bi bi-person-circle"></i>
             </div>
             <div class="author-info">
-              <h6>Rina Kartika</h6>
-              <span class="text-muted">Ibu Rumah Tangga</span>
+              <h6>Asdos Cowok</h6>
+              <span class="text-muted">Mahasiswa</span>
             </div>
           </div>
         </div>

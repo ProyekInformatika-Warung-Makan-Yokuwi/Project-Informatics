@@ -1598,20 +1598,9 @@ $role = $session->get('role');
 
       <div class="footer-section-ultra">
         <h5>Kontak Kami</h5>
-        <p><i class="bi bi-geo-alt me-2"></i>Jl. Raya No. 123, Jakarta</p>
+        <p><i class="bi bi-geo-alt me-2"></i>Jl. Paingan</p>
         <p><i class="bi bi-telephone me-2"></i>+62 812-3456-7890</p>
-        <p><i class="bi bi-envelope me-2"></i>info@yokuwi.com</p>
-        <p><i class="bi bi-clock me-2"></i>Buka 24 Jam</p>
-      </div>
-
-      <div class="footer-section-ultra">
-        <h5>Ikuti Kami</h5>
-        <div class="social-links d-flex gap-3">
-          <a href="#" class="social-link" style="color: #1877f2;"><i class="bi bi-facebook fs-4"></i></a>
-          <a href="#" class="social-link" style="color: #e4405f;"><i class="bi bi-instagram fs-4"></i></a>
-          <a href="#" class="social-link" style="color: #1da1f2;"><i class="bi bi-twitter fs-4"></i></a>
-          <a href="#" class="social-link" style="color: #ff0000;"><i class="bi bi-youtube fs-4"></i></a>
-        </div>
+        <p><i class="bi bi-clock me-2"></i>Buka Pukul 08.00-20.00 WIB</p>
       </div>
     </div>
 
