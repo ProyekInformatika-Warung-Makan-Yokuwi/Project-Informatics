@@ -30,7 +30,7 @@
       </div>
       <div class="col-lg-6 text-center mt-5 mt-lg-0">
         <div class="hero-image-container animate__animated animate__fadeIn animate__delay-4s">
-          <img src="<?= base_url('images/ardi_aib.jpg') ?>" alt="Warung Makan Yokuwi" class="img-fluid hero-image">
+          <img src="<?= base_url('images/kelompok.jpg') ?>" alt="Warung Makan Yokuwi" class="img-fluid hero-image">
           <div class="image-glow"></div>
         </div>
       </div>
