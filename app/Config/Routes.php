@@ -91,3 +91,6 @@ $routes->post('/admin/notifications/mark-read/(:num)', 'Admin::markNotificationR
 $routes->post('/admin/notifications/mark-all-read', 'Admin::markAllRead');
 
 $routes->get('riwayat-pesanan', 'Home::riwayatPesanan');
+
+$routes->get('laporan/download', 'Laporan::downloadLaporan');
+$routes->get('laporan/download-detail', 'Laporan::downloadLaporanDetail');
