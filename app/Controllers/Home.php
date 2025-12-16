@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MenuModel;
+use App\Models\PesananModel;
 
 class Home extends BaseController
 {
@@ -45,4 +46,25 @@ class Home extends BaseController
     {
         return $this->index();
     }
+
+    public function riwayatPesanan()
+{
+    $session = session();
+
+    if (!$session->get('isLoggedIn')) {
+        return redirect()->to('halaman_login');
+    }
+
+    $pesananModel = new PesananModel();
+
+    // Ambil pesanan (opsional: filter by user jika ada idUser)
+    $data['pesanan'] = $pesananModel
+        ->orderBy('waktuPemesanan', 'DESC')
+        ->findAll();
+
+    $data['title'] = 'Riwayat Pesanan';
+
+    return view('riwayat_pesanan', $data);
 }
+}
+

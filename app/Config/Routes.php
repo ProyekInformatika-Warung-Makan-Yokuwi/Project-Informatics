@@ -89,3 +89,5 @@ $routes->get('admin/hapus-akun/(:num)', 'Admin::hapusAkun/$1');
 $routes->get('/admin/notifications', 'Admin::getNotifications');
 $routes->post('/admin/notifications/mark-read/(:num)', 'Admin::markNotificationRead/$1');
 $routes->post('/admin/notifications/mark-all-read', 'Admin::markAllRead');
+
+$routes->get('riwayat-pesanan', 'Home::riwayatPesanan');

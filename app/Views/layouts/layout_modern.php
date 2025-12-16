@@ -1503,9 +1503,12 @@ $role = $session->get('role');
                   <li><a class="dropdown-item dropdown-item-ultra" href="<?= site_url('daftar_login') ?>">
                     <i class="bi bi-person-check me-2"></i>Informasi Akun
                   </a></li>
-                  <li><a class="dropdown-item dropdown-item-ultra" href="<?= site_url('/') ?>">
-                    <i class="bi bi-person-check me-2"></i>Riwayat Pesanan
-                  </a></li>
+                  <li>
+                    <a class="dropdown-item dropdown-item-ultra" href="<?= site_url('riwayat-pesanan') ?>">
+                      <i class="bi bi-receipt me-2"></i>Riwayat Pesanan
+                    </a>
+                  </li>
+
                 <?php endif; ?>
                 <li><hr class="dropdown-divider dropdown-divider-ultra"></li>
               <?php endif; ?>
