@@ -88,10 +88,9 @@
                 <i class="bi bi-card-text text-danger me-2"></i>Deskripsi Menu
               </h3>
               <p class="lead text-muted lh-lg">
-                <?= esc($menu['namaMenu']) ?> adalah hidangan yang lezat dan autentik dari warung makan Yokuwi.
-                Dibuat dengan bahan-bahan berkualitas tinggi dan resep tradisional yang telah diwariskan dari generasi ke generasi.
-                Rasakan cita rasa yang kaya dan tekstur yang sempurna dalam setiap gigitannya.
+                <?= esc($menu['detailMenu'] ?? 'Deskripsi menu belum tersedia.') ?>
               </p>
+
             </div>
 
             <!-- Ingredients -->
