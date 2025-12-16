@@ -82,6 +82,7 @@ $total = $total ?? 0;
       <!-- Payment Methods -->
       <div class="row g-4 mb-5 mt-5">
         <!-- Tunai Payment Method -->
+         <?php if ($isLoggedIn): ?>
         <div class="col-12">
           <div class="payment-method-card animate__animated animate__fadeInUp">
             <div class="row align-items-center g-3">
@@ -119,6 +120,7 @@ $total = $total ?? 0;
             </div>
           </div>
         </div>
+        <?php endif; ?>
 
         <!-- QRIS Payment Method -->
         <div class="col-12">
